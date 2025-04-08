@@ -1,13 +1,15 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import profil from '../img/profil.jpeg'
+
 const projects = [
   {
     id: 1,
     title: "Portfolio",
     description: "Un portfolio moderne avec React et Tailwind CSS",
     tags: ["React", "Tailwind CSS", "Vite"],
-    image: profil, 
+    image: profil,
+    link: "" // Ajoutez cette ligne avec l'URL de votre projet
   },
   // Ajoutez d'autres projets...
 ]
@@ -26,9 +28,12 @@ export default function Projects() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
-              <div
+              <a
                 key={project.id}
-                className="group bg-gradient-to-br from-gray-800/70 to-gray-900/80 border border-cyan-500/10 rounded-xl overflow-hidden shadow-lg shadow-blue-500/10 hover:shadow-cyan-500/20 transition-all duration-500 hover:-translate-y-1"
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group bg-gradient-to-br from-gray-800/70 to-gray-900/80 border border-cyan-500/10 rounded-xl overflow-hidden shadow-lg shadow-blue-500/10 hover:shadow-cyan-500/20 transition-all duration-500 hover:-translate-y-1 block" // Ajoutez 'block' pour que le lien prenne toute la place
               >
                 <div className="relative h-48 overflow-hidden">
                   <img
@@ -56,7 +61,7 @@ export default function Projects() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
