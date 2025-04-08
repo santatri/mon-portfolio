@@ -5,13 +5,12 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Fonction pour fermer le menu mobile après un clic
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
-    <header className="bg-white dark:bg-gray-900 shadow-sm fixed w-full z-50 backdrop-blur-sm bg-opacity-90 dark:bg-opacity-90">
-      <nav className="container mx-auto px-6 py-3">
-        <div className="flex justify-between items-center">
+    <header className="bg-black/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm fixed w-full z-50 h-16 transition-all duration-300">
+      <nav className="container mx-auto px-6 py-3 h-full">
+        <div className="flex justify-between items-center h-full">
           <NavLink 
             to="/" 
             className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-600 dark:from-emerald-300 dark:via-cyan-400 dark:to-blue-500"
@@ -21,7 +20,7 @@ export default function Header() {
           </NavLink>
           
           <div className="flex items-center space-x-6">
-            {/* Menu Desktop - Caché sur mobile */}
+            {/* Menu Desktop */}
             <div className="hidden md:flex space-x-6">
               <NavLink 
                 to="/" 
@@ -29,7 +28,7 @@ export default function Header() {
                   `px-3 py-2 rounded-md text-sm font-medium transition-all ${
                     isActive 
                       ? 'text-white bg-gradient-to-r from-emerald-500 to-cyan-600 shadow-lg shadow-cyan-500/20'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-emerald-500 dark:hover:text-emerald-400'
+                      : 'text-gray-300 hover:text-white'
                   }`
                 }
               >
@@ -41,7 +40,7 @@ export default function Header() {
                   `px-3 py-2 rounded-md text-sm font-medium transition-all ${
                     isActive 
                       ? 'text-white bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg shadow-blue-500/20'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-cyan-500 dark:hover:text-cyan-400'
+                      : 'text-gray-300 hover:text-white'
                   }`
                 }
               >
@@ -53,7 +52,7 @@ export default function Header() {
                   `px-3 py-2 rounded-md text-sm font-medium transition-all ${
                     isActive 
                       ? 'text-white bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg shadow-indigo-500/20'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400'
+                      : 'text-gray-300 hover:text-white'
                   }`
                 }
               >
@@ -65,7 +64,7 @@ export default function Header() {
                   `px-3 py-2 rounded-md text-sm font-medium transition-all ${
                     isActive 
                       ? 'text-white bg-gradient-to-r from-violet-500 to-purple-600 shadow-lg shadow-purple-500/20'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-violet-500 dark:hover:text-violet-400'
+                      : 'text-gray-300 hover:text-white'
                   }`
                 }
               >
@@ -75,7 +74,7 @@ export default function Header() {
 
             {/* Bouton Menu Mobile */}
             <button 
-              className="md:hidden p-2 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="md:hidden p-2 rounded-lg text-gray-300 hover:text-white transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle menu"
             >
@@ -88,17 +87,17 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Menu Mobile */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 space-y-2">
+        {/* Menu Mobile - Version latérale */}
+        <div className={`md:hidden fixed top-16 left-0 h-[calc(100vh-4rem)] w-1/2 bg-black/90 dark:bg-gray-900/95 shadow-xl transform transition-transform duration-300 ease-in-out z-40 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
+          <div className="p-6">
             <NavLink 
               to="/" 
               onClick={closeMobileMenu}
               className={({ isActive }) => 
-                `block px-4 py-3 rounded-lg text-base font-medium transition-all ${
+                `block px-4 py-3 rounded-lg text-base font-medium transition-all mb-3 ${
                   isActive 
                     ? 'text-white bg-gradient-to-r from-emerald-500 to-cyan-600 shadow-lg'
-                    : 'text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                    : 'text-gray-300 hover:text-white'
                 }`
               }
             >
@@ -108,10 +107,10 @@ export default function Header() {
               to="/about" 
               onClick={closeMobileMenu}
               className={({ isActive }) => 
-                `block px-4 py-3 rounded-lg text-base font-medium transition-all ${
+                `block px-4 py-3 rounded-lg text-base font-medium transition-all mb-3 ${
                   isActive 
                     ? 'text-white bg-gradient-to-r from-cyan-500 to-blue-600 shadow-lg'
-                    : 'text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                    : 'text-gray-300 hover:text-white'
                 }`
               }
             >
@@ -121,10 +120,10 @@ export default function Header() {
               to="/projects" 
               onClick={closeMobileMenu}
               className={({ isActive }) => 
-                `block px-4 py-3 rounded-lg text-base font-medium transition-all ${
+                `block px-4 py-3 rounded-lg text-base font-medium transition-all mb-3 ${
                   isActive 
                     ? 'text-white bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg'
-                    : 'text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                    : 'text-gray-300 hover:text-white'
                 }`
               }
             >
@@ -137,13 +136,21 @@ export default function Header() {
                 `block px-4 py-3 rounded-lg text-base font-medium transition-all ${
                   isActive 
                     ? 'text-white bg-gradient-to-r from-violet-500 to-purple-600 shadow-lg'
-                    : 'text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700'
+                    : 'text-gray-300 hover:text-white'
                 }`
               }
             >
               Contact
             </NavLink>
           </div>
+        </div>
+
+        {/* Overlay semi-transparent */}
+        {isMobileMenuOpen && (
+          <div 
+            className="fixed inset-0 bg-black/70 z-30 md:hidden"
+            onClick={closeMobileMenu}
+          />
         )}
       </nav>
     </header>
