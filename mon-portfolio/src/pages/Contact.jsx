@@ -1,10 +1,16 @@
 // src/pages/Contact.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Ajoutez useEffect
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 export default function Contact() {
   const [copied, setCopied] = useState(null);
+
+
+  // Ajoutez cet effet pour scroller en haut lorsque le composant est monté
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const copyToClipboard = (text, item) => {
     navigator.clipboard.writeText(text);

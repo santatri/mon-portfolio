@@ -1,3 +1,5 @@
+import { useEffect } from 'react'; // Ajoutez useEffect
+
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import profil from '../img/profil.jpeg'
@@ -6,6 +8,10 @@ import { SiTailwindcss, SiExpress,SiMysql } from 'react-icons/si'
 import { MdSchool, MdCode } from 'react-icons/md'
 
 export default function About() {
+   // Ajoutez cet effet pour scroller en haut lorsque le composant est monté
+   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
       <Header />

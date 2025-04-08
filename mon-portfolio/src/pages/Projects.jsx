@@ -1,3 +1,5 @@
+import { useEffect } from 'react'; // Ajoutez useEffect
+
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import portfolio from '../img/portfolio.jpg'
@@ -25,6 +27,10 @@ const projects = [
 ]
 
 export default function Projects() {
+  // Ajoutez cet effet pour scroller en haut lorsque le composant est monté
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
       <Header />
