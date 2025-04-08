@@ -23,7 +23,7 @@ export default function Contact() {
         </svg>
       ),
       color: "bg-green-500/20",
-      action: () => window.open(`https://wa.me/+261383073485`, '_blank')
+      action: () => window.open(`https://wa.me/+261329042042`, '_blank')
     },
     {
       id: 2,
