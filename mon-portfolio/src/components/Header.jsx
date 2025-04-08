@@ -17,7 +17,7 @@ export default function Header() {
             className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-500 to-blue-600 dark:from-emerald-300 dark:via-cyan-400 dark:to-blue-500"
             onClick={closeMobileMenu}
           >
-            Santatriniaina
+            .Santatriniaina
           </NavLink>
           
           <div className="flex items-center space-x-6">

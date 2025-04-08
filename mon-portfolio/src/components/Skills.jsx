@@ -210,7 +210,8 @@ export default function Home() {
         </section> */}
       </main>
 
-      <style jsx global>{`
+     <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes aurora-1 {
           0%, 100% { transform: translateX(-25%) translateY(-10%) rotate(-5deg); }
           50% { transform: translateX(25%) translateY(10%) rotate(5deg); }
@@ -242,7 +243,8 @@ export default function Home() {
           animation: aurora-4 40s infinite ease-in-out;
           animation-delay: 15s;
         }
-      `}</style>
+      `
+      }} />
     </>
   );
 }

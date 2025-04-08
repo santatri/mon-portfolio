@@ -1,6 +1,8 @@
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import profil from '../img/profil.jpeg'
+import portfolio from '../img/portfolio.jpg'
+import ftr from '../img/frt.png'
+
 
 const projects = [
   {
@@ -8,7 +10,15 @@ const projects = [
     title: "Portfolio",
     description: "Un portfolio moderne avec React et Tailwind CSS",
     tags: ["React", "Tailwind CSS", "Vite"],
-    image: profil,
+    image: portfolio,
+    link: "" // Ajoutez cette ligne avec l'URL de votre projet
+  },
+  {
+    id: 2,
+    title: "FactureApp",
+    description: "Un Application web de gestion e facture et stock , Utilisé par 4K-Design  ",
+    tags: ["React", "Tailwind CSS", "Vite","Node", "Express"],
+    image: ftr,
     link: "" // Ajoutez cette ligne avec l'URL de votre projet
   },
   // Ajoutez d'autres projets...
