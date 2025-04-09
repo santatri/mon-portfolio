@@ -35,6 +35,18 @@ export default function Header() {
                 Accueil
               </NavLink>
               <NavLink 
+                to="/Skills" 
+                className={({ isActive }) => 
+                  `px-3 py-2 rounded-md text-sm font-medium transition-all ${
+                    isActive 
+                      ? 'text-white bg-gradient-to-r from-emerald-500 to-cyan-600 shadow-lg shadow-cyan-500/20'
+                      : 'text-gray-300 hover:text-white'
+                  }`
+                }
+              >
+                Skills
+              </NavLink>
+              <NavLink 
                 to="/about" 
                 className={({ isActive }) => 
                   `px-3 py-2 rounded-md text-sm font-medium transition-all ${
@@ -102,6 +114,19 @@ export default function Header() {
               }
             >
               Accueil
+            </NavLink>
+            <NavLink 
+              to="/Skills" 
+              onClick={closeMobileMenu}
+              className={({ isActive }) => 
+                `block px-4 py-3 rounded-lg text-base font-medium transition-all mb-3 ${
+                  isActive 
+                    ? 'text-white bg-gradient-to-r from-emerald-500 to-cyan-600 shadow-lg'
+                    : 'text-gray-300 hover:text-white'
+                }`
+              }
+            >
+              Skills
             </NavLink>
             <NavLink 
               to="/about" 

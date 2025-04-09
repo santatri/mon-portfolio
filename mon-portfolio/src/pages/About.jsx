@@ -1,111 +1,165 @@
-import { useEffect } from 'react'; // Ajoutez useEffect
+import { useEffect } from 'react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import profil from '../img/profil.jpeg';
+import { FaReact, FaNodeJs } from 'react-icons/fa';
+import { SiTailwindcss, SiExpress, SiMysql } from 'react-icons/si';
+import { MdSchool, MdCode } from 'react-icons/md';
 
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import profil from '../img/profil.jpeg'
-import { FaReact, FaNodeJs } from 'react-icons/fa'
-import { SiTailwindcss, SiExpress,SiMysql } from 'react-icons/si'
-import { MdSchool, MdCode } from 'react-icons/md'
+// Emojis techniques et créatifs pour le fond
+const floatingEmojis = [
+  '💻', '🚀', '🔧', '📱', '🌐', '🖥️', '📊', '💾', '🧠', '⚙️', '🔌', 
+  '📝', '🧩', '🎨', '🔍', '👨‍💻', '👩‍💻', '🤖', '💡', '🛠️', '🔨', '📚',
+  '🔬', '🧪', '📱', '⌨️', '🖱️', '💽', '📀', '🖨️', '📡', '🔋', '📶',
+  '🔢', '🔤', '🔣', '🎯', '✨', '🌟', '💫', '🪐', '🧑‍🚀', '👨‍💼', '👩‍💼'
+];
 
 export default function About() {
-   // Ajoutez cet effet pour scroller en haut lorsque le composant est monté
-   useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
     <>
       <Header />
-      <main className="pt-28 pb-20 px-6 min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
-        <div className="container mx-auto max-w-4xl">
-          <h1 className="text-4xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500 mb-12">
-            À propos de moi
-          </h1>
+      <main className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 relative overflow-hidden pt-28 pb-20 px-4 sm:px-6">
+        {/* Animated Emoji Background */}
+        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          {floatingEmojis.map((emoji, index) => {
+            const size = 0.8 + Math.random() * 1.5;
+            const duration = 15 + Math.random() * 25;
+            const delay = Math.random() * 15;
+            const opacity = 0.1 + Math.random() * 0.3;
+            const startX = Math.random() * 100;
+            const startY = Math.random() * 100;
+            const rotation = Math.random() * 360;
+            
+            // Random direction (0-3)
+            const direction = Math.floor(Math.random() * 4);
+            
+            return (
+              <div 
+                key={index}
+                className="absolute text-2xl emoji-float"
+                style={{
+                  '--size': `${size}rem`,
+                  '--duration': `${duration}s`,
+                  '--delay': `${delay}s`,
+                  '--opacity': opacity,
+                  '--rotation': `${rotation}deg`,
+                  '--start-x': `${startX}%`,
+                  '--start-y': `${startY}%`,
+                  '--direction': direction,
+                  left: `${startX}%`,
+                  top: `${startY}%`,
+                }}
+              >
+                {emoji}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="container mx-auto max-w-6xl relative z-10">
+          {/* Page Title */}
+          <div className="text-center mb-16">
+            <h1 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500 mb-4">
+              À propos de moi
+            </h1>
+            <div className="w-24 h-1 bg-gradient-to-r from-emerald-500 to-cyan-500 mx-auto rounded-full"></div>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Nouveau design pour la photo */}
+          {/* Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Profile Image */}
             <div className="flex justify-center">
-              <div className="relative w-64 h-64 group">
-                <div className="absolute inset-0 rounded-2xl border-4 border-cyan-400/30 transform rotate-6 group-hover:rotate-3 transition-transform duration-500"></div>
-                <div className="absolute inset-0 rounded-2xl border-4 border-emerald-400/20 transform -rotate-6 group-hover:-rotate-3 transition-transform duration-500"></div>
-                <img 
-                  src={profil} 
-                  alt="Photo de profil" 
-                  className="relative z-10 w-full h-full object-cover rounded-2xl shadow-2xl border-4 border-gray-700 group-hover:border-cyan-400/50 transition-all duration-300"
-                />
-                <div className="absolute -inset-6 bg-gradient-to-tr from-emerald-400/10 via-cyan-500/20 to-blue-600/10 rounded-2xl opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500"></div>
+              <div className="relative w-72 h-72 group">
+                <div className="absolute inset-0 rounded-3xl border-4 border-cyan-400/30 transform rotate-6 transition-transform duration-500 group-hover:rotate-3"></div>
+                <div className="absolute inset-0 rounded-3xl border-4 border-emerald-400/20 transform -rotate-6 transition-transform duration-500 group-hover:-rotate-3"></div>
+                <div className="relative z-10 h-full w-full overflow-hidden rounded-3xl border-4 border-gray-700 transition-all duration-300 group-hover:border-cyan-400/50">
+                  <img 
+                    src={profil} 
+                    alt="Photo de profil" 
+                    className="h-full w-full object-cover grayscale-[20%] transition-all duration-500 group-hover:grayscale-0"
+                  />
+                </div>
+                <div className="absolute -inset-6 rounded-3xl bg-gradient-to-tr from-emerald-400/10 via-cyan-500/20 to-blue-600/10 opacity-0 blur-lg transition-opacity duration-500 group-hover:opacity-100"></div>
               </div>
             </div>
             
-            <div className="space-y-6">
-              <h2 className="text-2xl font-semibold text-white">
-                Je suis un <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-cyan-400">Développeur Full Stack</span>
-              </h2>
-              
-              <div className="flex flex-wrap gap-4 mb-4">
-                <div className="flex items-center gap-2 text-cyan-300 bg-gray-800/50 px-3 py-1 rounded-full">
-                  <FaReact className="text-xl" />
-                  <span>React</span>
-                </div>
-                <div className="flex items-center gap-2 text-cyan-400 bg-gray-800/50 px-3 py-1 rounded-full">
-                  <SiTailwindcss className="text-xl" />
-                  <span>Tailwind CSS</span>
-                </div>
-                <div className="flex items-center gap-2 text-green-500 bg-gray-800/50 px-3 py-1 rounded-full">
-                  <FaNodeJs className="text-xl" />
-                  <span>Node.js</span>
-                </div>
-                <div className="flex items-center gap-2 text-gray-300 bg-gray-800/50 px-3 py-1 rounded-full">
-                  <SiExpress className="text-xl" />
-                  <span>Express</span>
-                </div>
-                <div className="flex items-center gap-2 text-orange-500 bg-gray-800/50 px-3 py-1 rounded-full">
-                  <SiMysql className="text-xl"    />
-                  <span>Mysql</span>
-                </div>
-              </div>
-              
-              {/* Section éducation */}
-              <div className="bg-gray-800/40 p-4 rounded-lg border border-gray-700">
-                <div className="flex items-center gap-3 text-cyan-400 mb-2">
-                  <MdSchool className="text-xl" />
-                  <h3 className="font-medium">Formation académique</h3>
-                </div>
-                <p className="text-gray-300">
-                  Étudiant en <span className="text-emerald-300">Informatique de gestion - Génie Logiciel et Intelligence Artificielle</span> à l'Institut Supérieur Polytechnique de Madagascar (ISPM)
+            {/* Content */}
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-3xl font-semibold text-white mb-2">
+                  Je suis un <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-cyan-400">Développeur Full Stack</span>
+                </h2>
+                <p className="text-lg text-gray-300">
+                  Passionné par le développement web depuis plusieurs années, je crée des applications modernes avec les dernières technologies.
                 </p>
               </div>
               
-              <p className="text-lg text-gray-300">
-                Passionné par le développement web  depuis plusieurs années, je crée des applications modernes avec les dernières technologies.
-              </p>
-              
-              {/* Section compétences */}
-              <div className="bg-gray-800/40 p-4 rounded-lg border border-gray-700">
-                <div className="flex items-center gap-3 text-cyan-400 mb-2">
-                  <MdCode className="text-xl" />
-                  <h3 className="font-medium">Domaines d'expertise</h3>
+              {/* Skills Tags */}
+              <div className="flex flex-wrap gap-3">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/50 text-cyan-300 border border-cyan-500/20">
+                  <FaReact className="text-xl" />
+                  <span>React</span>
                 </div>
-                <ul className="space-y-2 text-gray-300">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/50 text-cyan-400 border border-cyan-500/20">
+                  <SiTailwindcss className="text-xl" />
+                  <span>Tailwind CSS</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/50 text-green-500 border border-green-500/20">
+                  <FaNodeJs className="text-xl" />
+                  <span>Node.js</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/50 text-gray-300 border border-gray-600/20">
+                  <SiExpress className="text-xl" />
+                  <span>Express</span>
+                </div>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-800/50 text-orange-500 border border-orange-500/20">
+                  <SiMysql className="text-xl" />
+                  <span>MySQL</span>
+                </div>
+              </div>
+              
+              {/* Education */}
+              <div className="p-5 rounded-xl bg-gray-800/40 border border-gray-700 backdrop-blur-sm">
+                <div className="flex items-center gap-3 text-cyan-400 mb-3">
+                  <MdSchool className="text-2xl" />
+                  <h3 className="text-xl font-medium">Formation académique</h3>
+                </div>
+                <p className="text-gray-300">
+                  Étudiant en <span className="text-emerald-300 font-medium">Informatique de gestion - Génie Logiciel et Intelligence Artificielle</span> à l'Institut Supérieur Polytechnique de Madagascar (ISPM)
+                </p>
+              </div>
+              
+              {/* Expertise */}
+              <div className="p-5 rounded-xl bg-gray-800/40 border border-gray-700 backdrop-blur-sm">
+                <div className="flex items-center gap-3 text-cyan-400 mb-3">
+                  <MdCode className="text-2xl" />
+                  <h3 className="text-xl font-medium">Domaines d'expertise</h3>
+                </div>
+                <ul className="space-y-3 text-gray-300">
                   <li className="flex items-start">
-                    <span className="text-emerald-400 mr-2">▹</span>
+                    <span className="text-emerald-400 mr-3 text-lg">▹</span>
                     <span>Développement Frontend (React.js)</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-emerald-400 mr-2">▹</span>
+                    <span className="text-emerald-400 mr-3 text-lg">▹</span>
                     <span>Développement Backend (Node.js, Express)</span>
                   </li>
                   <li className="flex items-start">
-                    <span className="text-emerald-400 mr-2">▹</span>
+                    <span className="text-emerald-400 mr-3 text-lg">▹</span>
                     <span>Conception d'interfaces utilisateur (Tailwind CSS)</span>
                   </li>
-                 
                 </ul>
               </div>
               
-              <div className="pt-2">
+              {/* Contact Button */}
+              <div className="pt-4">
                 <a 
                   href="/contact" 
-                  className="inline-flex items-center bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500 text-gray-900 font-medium px-6 py-3 rounded-lg hover:from-emerald-400 hover:via-cyan-500 hover:to-blue-600 transition-all shadow-lg hover:shadow-cyan-500/20"
+                  className="inline-flex items-center justify-center bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500 text-gray-900 font-medium px-8 py-3 rounded-lg hover:from-emerald-400 hover:via-cyan-500 hover:to-blue-600 transition-all shadow-lg hover:shadow-cyan-500/20 text-lg"
                 >
                   Contactez-moi
                 </a>
@@ -115,6 +169,59 @@ export default function About() {
         </div>
       </main>
       <Footer />
+
+      <style jsx global>{`
+        .emoji-float {
+          font-size: var(--size);
+          opacity: var(--opacity);
+          animation: float var(--duration) linear infinite;
+          animation-delay: var(--delay);
+          transform: rotate(var(--rotation));
+        }
+
+        @keyframes float {
+          0% {
+            transform: 
+              translateX(0) 
+              translateY(0) 
+              rotate(var(--rotation));
+            opacity: 0;
+          }
+          10% {
+            opacity: var(--opacity);
+          }
+          90% {
+            opacity: var(--opacity);
+          }
+          100% {
+            transform: 
+              translateX(calc(var(--direction) === 0 ? 0 : 
+                          var(--direction) === 1 ? -100vw : 
+                          var(--direction) === 2 ? 0 : 100vw)) 
+              translateY(calc(var(--direction) === 0 ? 100vh : 
+                          var(--direction) === 1 ? 0 : 
+                          var(--direction) === 2 ? -100vh : 0)) 
+              rotate(calc(var(--rotation) + 360deg));
+            opacity: 0;
+          }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 640px) {
+          @keyframes float {
+            100% {
+              transform: 
+                translateX(calc(var(--direction) === 0 ? 0 : 
+                            var(--direction) === 1 ? -150vw : 
+                            var(--direction) === 2 ? 0 : 150vw)) 
+                translateY(calc(var(--direction) === 0 ? 150vh : 
+                            var(--direction) === 1 ? 0 : 
+                            var(--direction) === 2 ? -150vh : 0)) 
+                rotate(calc(var(--rotation) + 360deg));
+            }
+          }
+        }
+      `}</style>
     </>
-  )
+  );
 }

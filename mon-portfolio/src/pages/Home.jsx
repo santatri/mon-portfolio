@@ -2,7 +2,6 @@ import { useEffect } from 'react'; // Ajoutez useEffect
 
 import Header from '../components/Header'
 import Hero from '../components/Hero'
-import Skills from '../components/Skills'
 import Footer from '../components/Footer'
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Skills />
       </main>
       <Footer />
     </>
