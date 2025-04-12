@@ -30,8 +30,8 @@ export default function Home() {
       subtitle: "Technologies côté serveur",
       gradient: "from-amber-400 to-orange-500",
       items: [
-        { name: 'Node.js', icon: <FaNodeJs />, color: 'text-green-500', level: 'Débutant' },
-        { name: 'Express', icon: <SiExpress />, color: 'text-gray-500', level: 'Débutant' },
+        { name: 'Node.js', icon: <FaNodeJs />, color: 'text-green-500', level: '' },
+        { name: 'Express', icon: <SiExpress />, color: 'text-gray-500', level: '' },
         { name: 'PHP', icon: <FaPhp />, color: 'text-purple-500', level: 'Intermédiaire' },
       ]
     },
