@@ -16,12 +16,7 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/404" element={<NotFound />} />
-        <Route path="*" element={
-              <div style={{textAlign: 'center', padding: '50px'}}>
-                <h1>404 - Page non trouvée</h1>
-                <a href="/">Retour à l'accueil</a>
-              </div>
-            } />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
