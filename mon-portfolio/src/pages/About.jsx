@@ -5,6 +5,7 @@ import profil from '../img/profil.jpeg';
 import { FaReact, FaNodeJs } from 'react-icons/fa';
 import { SiTailwindcss, SiExpress, SiMysql } from 'react-icons/si';
 import { MdSchool, MdCode } from 'react-icons/md';
+import { NavLink } from 'react-router-dom';
 
 // Emojis techniques et créatifs pour le fond
 const floatingEmojis = [
@@ -157,12 +158,12 @@ export default function About() {
               
               {/* Contact Button */}
               <div className="pt-4">
-                <a 
-                  href="/contact" 
+              <NavLink 
+                  to="/contact" 
                   className="inline-flex items-center justify-center bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500 text-gray-900 font-medium px-8 py-3 rounded-lg hover:from-emerald-400 hover:via-cyan-500 hover:to-blue-600 transition-all shadow-lg hover:shadow-cyan-500/20 text-lg"
                 >
                   Contactez-moi
-                </a>
+                  </NavLink>
               </div>
             </div>
           </div>

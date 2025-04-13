@@ -1,7 +1,7 @@
 import React from 'react';
 import profil from '../img/profil.jpeg';
 import cv from '../cv/SANTATRINIAINA_Feno_Nasandratra_CV.pdf';
-
+import { NavLink } from 'react-router-dom';
 const floatingEmojis = [
   '💻', '🚀', '🔧', '📱', '🌐', '🖥️', '📊', '💾', '🧠', '⚙️', '🔌', 
   '📝', '🧩', '🎨', '🔍', '📚', '🔬', '💡', '📱', '🖱️', '⌨️', '🖨️',
@@ -76,18 +76,18 @@ export default function Hero() {
               Je crée des applications web modernes et réactives en utilisant React pour l'interface utilisateur, Tailwind CSS pour un design flexible et élégant, ainsi que Node.js et Express pour un backend puissant et rapide. Cette combinaison me permet de concevoir des solutions web performantes, sécurisées et faciles à maintenir, tout en offrant une expérience utilisateur fluide et agréable.
             </p>
             <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 lg:justify-start">
-              <a 
-                href="/contact" 
-                className="inline-flex justify-center rounded-lg bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500 px-3 py-1.5 text-xs font-medium text-gray-900 shadow-lg transition-all hover:from-emerald-400 hover:via-cyan-500 hover:to-blue-600 hover:shadow-cyan-500/20 xs:px-4 xs:py-2 xs:text-sm sm:px-5 sm:py-2 md:px-6 md:py-3 md:text-base"
-              >
-                Me contacter
-              </a>
-              <a 
-                href="/projects" 
+            <NavLink 
+  to="/contact" 
+  className="inline-flex justify-center rounded-lg bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500 px-3 py-1.5 text-xs font-medium text-gray-900 shadow-lg transition-all hover:from-emerald-400 hover:via-cyan-500 hover:to-blue-600 hover:shadow-cyan-500/20 xs:px-4 xs:py-2 xs:text-sm sm:px-5 sm:py-2 md:px-6 md:py-3 md:text-base"
+>
+  Me contacter
+              </NavLink>
+              <NavLink 
+                to="/projects" 
                 className="inline-flex justify-center rounded-lg border border-cyan-400/50 px-3 py-1.5 text-xs font-medium text-cyan-300 backdrop-blur-sm transition hover:border-cyan-300/70 hover:bg-cyan-500/10 hover:text-white xs:px-4 xs:py-2 xs:text-sm sm:px-5 sm:py-2 md:px-6 md:py-3 md:text-base"
               >
                 Voir mes projets
-              </a>
+              </NavLink>
               <button
                 onClick={handleDownloadCV}
                 className="inline-flex items-center justify-center gap-1 rounded-lg border border-emerald-400/50 px-3 py-1.5 text-xs font-medium text-emerald-300 backdrop-blur-sm transition hover:border-emerald-300/70 hover:bg-emerald-500/10 hover:text-white xs:gap-1.5 xs:px-4 xs:py-2 xs:text-sm sm:gap-2 sm:px-5 sm:py-2 md:px-6 md:py-3 md:text-base"
