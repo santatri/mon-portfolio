@@ -16,7 +16,7 @@ export default function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/404" element={<NotFound />} />
-        <Route path="*" element={<Navigate to="/404" replace />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
