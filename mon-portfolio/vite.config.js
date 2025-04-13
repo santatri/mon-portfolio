@@ -4,20 +4,22 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base: '/', // Cette ligne est cruciale
   
-  // Configuration spécifique pour les assets
+  server: {
+    historyApiFallback: true, // Important pour le dev
+  },
+  
   assetsInclude: ['**/*.pdf'],
-  
   define: {
     'process.env': {},
     'process.browser': true,
     'global': 'window',
   },
   
-  
-  
   build: {
-    assetsInlineLimit: 0, // Important pour les fichiers PDF
+    outDir: 'dist', // Explicitement défini
+    assetsInlineLimit: 0,
     rollupOptions: {
       output: {
         assetFileNames: (assetInfo) => {
