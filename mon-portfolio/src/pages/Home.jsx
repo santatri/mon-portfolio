@@ -1,21 +1,22 @@
-import { useEffect } from 'react'; // Ajoutez useEffect
-
-import Header from '../components/Header'
-import Hero from '../components/Hero'
-import Footer from '../components/Footer'
+import { useEffect } from 'react';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import Footer from '../components/Footer';
 
 export default function Home() {
-   // Ajoutez cet effet pour scroller en haut lorsque le composant est monté
-   useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   return (
-    <>
+    <div className="flex flex-col min-h-screen bg-gray-900">
       <Header />
-      <main>
+      
+      <main className="flex-1">
         <Hero />
       </main>
+      
       <Footer />
-    </>
-  )
+    </div>
+  );
 }

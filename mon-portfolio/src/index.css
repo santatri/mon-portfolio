@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@supports (-webkit-touch-callout: none) {
+    /* Correction spécifique pour Safari iOS */
+    .min-h-screen {
+      height: -webkit-fill-available;
+    }
+  }
