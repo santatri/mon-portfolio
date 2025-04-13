@@ -18,7 +18,7 @@ const projects = [
     description: "Un portfolio moderne avec React et Tailwind CSS",
     tags: ["React", "Tailwind CSS", "Vite"],
     image: portfolio,
-    link: ""
+    link: "https://santatriniaina-portfolio.vercel.app"
   },
   {
     id: 2,

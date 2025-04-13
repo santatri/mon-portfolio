@@ -90,14 +90,27 @@ export default function About() {
             
             {/* Content */}
             <div className="space-y-8">
-              <div>
+            <div>
                 <h2 className="text-3xl font-semibold text-white mb-2">
-                  Je suis un <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-cyan-400">Développeur Full Stack</span>
+                  Je suis <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-cyan-400">SANTATRINIAINA Feno Nasandratra</span>
                 </h2>
                 <p className="text-lg text-gray-300">
-                  Passionné par le développement web depuis plusieurs années, je crée des applications modernes avec les dernières technologies.
+                  Développeur Full Stack passionné par les technologies web modernes.
                 </p>
+                
+                {/* Nouvelles informations personnelles */}
+                <div className="mt-4 space-y-2 text-gray-300">
+                  <div className="flex items-start">
+                    <span className="text-emerald-400 mr-2">•</span>
+                    <span>Né le 04 Mars 2002 à Antanifotsy</span>
+                  </div>
+                  <div className="flex items-start">
+                    <span className="text-emerald-400 mr-2">•</span>
+                    <span>Résidant actuellement à Antananarivo</span>
+                  </div>
+                </div>
               </div>
+              
               
               {/* Skills Tags */}
               <div className="flex flex-wrap gap-3">
