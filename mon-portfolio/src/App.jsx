@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'; // Supprimez BrowserRouter d'ici
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
