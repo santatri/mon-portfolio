@@ -1,55 +1,60 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import portfolio from '../img/portfolio.jpg';
-import ftr from '../img/frt.png';
+import projects from '../data/projectsData';
 
 const floatingEmojis = [
   '💻', '🚀', '🔧', '📱', '🌐', '🖥️', '📊', '💾', '🧠', '⚙️', '🔌',
   '📝', '🧩', '🎨', '🔍', '👨‍💻', '👩‍💻', '🤖', '💡', '🛠️', '🔨', '📚',
   '🔬', '🧪', '⌨️', '🖱️', '💽', '📀', '🖨️', '📡', '🔋', '📶', '🎯',
-  '✨', '🌟', '💫', '🪐', '🧑‍🚀'
-];
-
-const projects = [
-  {
-    id: 1,
-    title: "Portfolio",
-    description: "Un portfolio moderne avec React et Tailwind CSS",
-    tags: ["React", "Tailwind CSS", "Vite"],
-    image: portfolio,
-    link: "https://santatriniaina-portfolio.vercel.app"
-  },
-  {
-    id: 2,
-    title: "FactureApp",
-    description: "Application web de gestion de factures et stock, utilisée par 4K-Design",
-    tags: ["React", "Tailwind CSS", "Vite", "Node", "Express"],
-    image: ftr,
-    link: ""
-  },
+  '✨', '🌟', '💫', '🪐🧑‍🚀'
 ];
 
 export default function Projects() {
+  const [activeImageIndex, setActiveImageIndex] = useState({});
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Initialiser l'index actif pour chaque projet
+    const initialIndexes = projects.reduce((acc, project) => {
+      acc[project.id] = 0;
+      return acc;
+    }, {});
+    setActiveImageIndex(initialIndexes);
   }, []);
+
+  const nextImage = (projectId) => {
+    setActiveImageIndex(prev => {
+      const project = projects.find(p => p.id === projectId);
+      const currentIndex = prev[projectId];
+      const nextIndex = (currentIndex + 1) % project.images.length;
+      return { ...prev, [projectId]: nextIndex };
+    });
+  };
+
+  const prevImage = (projectId) => {
+    setActiveImageIndex(prev => {
+      const project = projects.find(p => p.id === projectId);
+      const currentIndex = prev[projectId];
+      const prevIndex = (currentIndex - 1 + project.images.length) % project.images.length;
+      return { ...prev, [projectId]: prevIndex };
+    });
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 relative overflow-hidden">
-      {/* Background animé - Emojis flottants discrets */}
+      {/* Background animé - Emojis flottants */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none emoji-container">
         {floatingEmojis.map((emoji, index) => {
-          // Configuration subtile pour les emojis
-          const size = 0.8 + Math.random() * 1.2; // Taille réduite
-          const duration = 40 + Math.random() * 50; // Durée plus longue
-          const delay = Math.random() * 30; // Délai aléatoire
-          const opacity = 0.1 + Math.random() * 0.2; // Opacité très faible
-          const startX = Math.random() * 100; 
+          const size = 0.8 + Math.random() * 1.2;
+          const duration = 40 + Math.random() * 50;
+          const delay = Math.random() * 30;
+          const opacity = 0.1 + Math.random() * 0.2;
+          const startX = Math.random() * 100;
           const startY = Math.random() * 100;
-          const endX = startX + (Math.random() * 60 - 30); // Déplacement plus aléatoire
+          const endX = startX + (Math.random() * 60 - 30);
           const endY = startY + (Math.random() * 60 - 30);
-          const rotate = Math.random() * 360; // Rotation aléatoire
+          const rotate = Math.random() * 360;
 
           return (
             <div 
@@ -89,18 +94,77 @@ export default function Projects() {
                 className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-800/70 to-gray-900/80 border border-cyan-500/10 shadow-lg shadow-blue-500/10 hover:shadow-cyan-500/20 transition-all duration-500 hover:-translate-y-1"
               >
                 <a
-                  href={project.link}
+                  href={project.link || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block h-full"
                 >
+                  {/* Carrousel d'images avec navigation */}
                   <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-transparent to-transparent" />
+                    {project.images.map((image, index) => (
+                      <img
+                        key={index}
+                        src={image}
+                        alt={`${project.title} - ${index + 1}`}
+                        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                          index === activeImageIndex[project.id] ? 'opacity-100' : 'opacity-0'
+                        }`}
+                      />
+                    ))}
+                    
+                    {/* Boutons de navigation */}
+                    {project.images.length > 1 && (
+                      <>
+                        <button
+                          type="button"
+                          className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-2 z-10"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            prevImage(project.id);
+                          }}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </button>
+                        <button
+                          type="button"
+                          className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white rounded-full p-2 z-10"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            nextImage(project.id);
+                          }}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                          </svg>
+                        </button>
+                      </>
+                    )}
+                    
+                    {/* Indicateurs de position */}
+                    {project.images.length > 1 && (
+                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
+                        {project.images.map((_, index) => (
+                          <button
+                            key={index}
+                            type="button"
+                            className={`w-2 h-2 rounded-full transition-all ${
+                              index === activeImageIndex[project.id] 
+                                ? 'bg-cyan-400 w-4' 
+                                : 'bg-white/50'
+                            }`}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setActiveImageIndex(prev => ({
+                                ...prev,
+                                [project.id]: index
+                              }));
+                            }}
+                          />
+                        ))}
+                      </div>
+                    )}
                   </div>
                   
                   <div className="p-6">
@@ -132,41 +196,29 @@ export default function Projects() {
 
       <Footer />
 
-      <style jsx global>{`
-        .emoji-container {
-          perspective: 1000px;
-        }
-        
-        .floating-emoji {
-          will-change: transform, opacity;
-          transform-style: preserve-3d;
-          pointer-events: none;
-          user-select: none;
-        }
-        
+       <style jsx global>{`
         @keyframes float {
           0% {
-            transform: 
-              translate(0, 0)
-              rotate(0deg);
+            transform: translateY(0) rotate(0deg);
             opacity: 0;
           }
-          20% {
-            opacity: var(--opacity);
+          10% {
+            opacity: 0.2;
+          }
+          90% {
+            opacity: 0.2;
           }
           100% {
-            transform: 
-              translate(calc(var(--end-x) - var(--start-x)), calc(var(--end-y) - var(--start-y)))
-              rotate(var(--rotate));
+            transform: translateY(-100vh) rotate(360deg);
             opacity: 0;
           }
         }
-
-        /* Ajustements pour mobile */
-        @media (max-width: 640px) {
-          .floating-emoji {
-            font-size: calc(0.5rem + 1vw);
-          }
+        @keyframes aurora-1 {
+          0%, 100% { transform: translateX(-25%) translateY(-10%) rotate(-5deg); }
+          50% { transform: translateX(25%) translateY(10%) rotate(5deg); }
+        }
+        .animate-aurora-1 {
+          animation: aurora-1 25s infinite ease-in-out;
         }
       `}</style>
     </div>
