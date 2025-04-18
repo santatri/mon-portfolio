@@ -174,6 +174,9 @@ export default function Projects() {
                     <p className="text-gray-300 mb-4">
                       {project.description}
                     </p>
+                     <p className="text-gray-300 mb-4">
+                      {project.projet}
+                    </p>
                     <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag) => (
                         <span
