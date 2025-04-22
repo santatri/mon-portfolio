@@ -42,7 +42,7 @@ const projects = [
     description: "Application web de gestion de factures et stock, utilisée par l'Entreprise 4K-Design",
     tags: ["React", "Tailwind CSS", "Vite", "Node", "Express","Mysql"],
     images: [login,user,client,produit,fature], // Tableau d'images
-    link: "",
+    link: "https://4kdesigns-mada.com",
     projet:"Projet personnelle"
 
   },
