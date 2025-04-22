@@ -34,7 +34,7 @@ const projects = [
     tags: ["React", "CSS", "Node", "Express","Mysql"],
     images: [ftr], // Tableau d'images
     link: "",
-    projet:"Projet encour / colaboration avec RANDRIANIRIANA Toky Herizo "
+    projet:"Projet en cours / collaboration avec RANDRIANIRIANA Toky Herizo "
   },
   {
     id: 3,
