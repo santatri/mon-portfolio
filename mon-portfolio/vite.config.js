@@ -2,21 +2,10 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
+// vite.config.js
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/', // Cette ligne est cruciale
-  
-  server: {
-    historyApiFallback: true,
-    strictPort: true,
-    port: 5173
-  },
-  
-  preview: {
-    port: 5173,
-    strictPort: true
-  },
-  
+  base: '/',
   build: {
     outDir: 'dist',
     emptyOutDir: true,
@@ -25,5 +14,9 @@ export default defineConfig({
         assetFileNames: 'assets/[name]-[hash][extname]'
       }
     }
+  },
+  preview: {
+    port: 5173,
+    strictPort: true
   }
 });
