@@ -73,7 +73,7 @@ const projects = [
   },
   {
     id: 5,
-    title: "SESMED",
+    title: "S.E.S MED",
     description: "Application web pour l’entreprise SESMED, permettant la gestion des utilisateurs, des clients, des produits et des factures, avec une interface moderne et performante.",
     tags: ["Angular", "Symfony", "Docker", "Tailwind CSS"],
     images: [ses5, ses2, ses3, ses4, ses6, ses1],
