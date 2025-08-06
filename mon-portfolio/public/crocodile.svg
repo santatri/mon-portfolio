@@ -1,0 +1,27 @@
+<svg width="400" height="250" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+  <!-- Tête du crocodile -->
+  <ellipse cx="200" cy="130" rx="140" ry="90" fill="#2d5a27" stroke="#1a3d1a" stroke-width="6"/>
+  <!-- Museau -->
+  <ellipse cx="320" cy="130" rx="70" ry="40" fill="#2d5a27" stroke="#1a3d1a" stroke-width="5"/>
+  <!-- Mâchoire inférieure -->
+  <ellipse cx="340" cy="150" rx="50" ry="25" fill="#a3c68c" stroke="#1a3d1a" stroke-width="3"/>
+  <!-- Narines -->
+  <ellipse cx="370" cy="120" rx="8" ry="5" fill="#1a3d1a"/>
+  <ellipse cx="370" cy="140" rx="8" ry="5" fill="#1a3d1a"/>
+  <!-- Yeux -->
+  <ellipse cx="250" cy="90" rx="22" ry="28" fill="#fff"/>
+  <ellipse cx="250" cy="90" rx="10" ry="14" fill="#000"/>
+  <ellipse cx="250" cy="85" rx="4" ry="6" fill="#fff"/>
+  <ellipse cx="250" cy="170" rx="22" ry="28" fill="#fff"/>
+  <ellipse cx="250" cy="170" rx="10" ry="14" fill="#000"/>
+  <ellipse cx="250" cy="165" rx="4" ry="6" fill="#fff"/>
+  <!-- Dents -->
+  <rect x="370" y="130" width="8" height="20" fill="#fff" rx="2"/>
+  <rect x="380" y="135" width="8" height="20" fill="#fff" rx="2"/>
+  <rect x="360" y="125" width="8" height="20" fill="#fff" rx="2"/>
+  <!-- Écailles -->
+  <ellipse cx="150" cy="70" rx="18" ry="8" fill="#1a3d1a" opacity="0.7"/>
+  <ellipse cx="180" cy="60" rx="18" ry="8" fill="#1a3d1a" opacity="0.7"/>
+  <ellipse cx="210" cy="55" rx="18" ry="8" fill="#1a3d1a" opacity="0.7"/>
+  <ellipse cx="240" cy="60" rx="18" ry="8" fill="#1a3d1a" opacity="0.7"/>
+</svg>

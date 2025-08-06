@@ -1,0 +1,27 @@
+<svg width="400" height="400" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Oreilles -->
+  <ellipse cx="40" cy="100" rx="32" ry="38" fill="#a97c50" stroke="#654321" stroke-width="4"/>
+  <ellipse cx="160" cy="100" rx="32" ry="38" fill="#a97c50" stroke="#654321" stroke-width="4"/>
+  <ellipse cx="40" cy="100" rx="16" ry="20" fill="#fff3e0" opacity="0.7"/>
+  <ellipse cx="160" cy="100" rx="16" ry="20" fill="#fff3e0" opacity="0.7"/>
+  <!-- Tête -->
+  <ellipse cx="100" cy="110" rx="70" ry="80" fill="#8B4513" stroke="#654321" stroke-width="4"/>
+  <!-- Museau -->
+  <ellipse cx="100" cy="150" rx="45" ry="35" fill="#e2b07a" stroke="#654321" stroke-width="3"/>
+  <!-- Nez -->
+  <ellipse cx="100" cy="155" rx="10" ry="6" fill="#654321"/>
+  <ellipse cx="93" cy="155" rx="2" ry="3" fill="#fff" opacity="0.7"/>
+  <ellipse cx="107" cy="155" rx="2" ry="3" fill="#fff" opacity="0.7"/>
+  <!-- Bouche -->
+  <path d="M90 165 Q100 175 110 165" stroke="#654321" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Yeux -->
+  <ellipse cx="80" cy="100" rx="10" ry="14" fill="#fff"/>
+  <ellipse cx="120" cy="100" rx="10" ry="14" fill="#fff"/>
+  <ellipse cx="80" cy="105" rx="4" ry="6" fill="#000"/>
+  <ellipse cx="120" cy="105" rx="4" ry="6" fill="#000"/>
+  <ellipse cx="78" cy="103" rx="1.5" ry="2" fill="#fff"/>
+  <ellipse cx="118" cy="103" rx="1.5" ry="2" fill="#fff"/>
+  <!-- Sourcils -->
+  <path d="M70 85 Q80 80 90 85" stroke="#654321" stroke-width="3" fill="none"/>
+  <path d="M110 85 Q120 80 130 85" stroke="#654321" stroke-width="3" fill="none"/>
+</svg>
