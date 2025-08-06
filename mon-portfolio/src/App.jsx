@@ -11,8 +11,8 @@ export default function App() {
     <div className="font-sans text-gray-800">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/skills" element={<Skills />} />
         <Route path="/about" element={<About />} />
+        <Route path="/skills" element={<Skills />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/404" element={<NotFound />} />
