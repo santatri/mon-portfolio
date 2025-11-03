@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { FaReact, FaNodeJs } from 'react-icons/fa';
-import { SiTailwindcss, SiExpress, SiMysql, SiTypescript, SiJavascript, SiAngular, SiSymfony } from 'react-icons/si';
+import { SiTailwindcss, SiExpress, SiMysql, SiTypescript, SiJavascript, SiAngular, SiSymfony, SiPostgresql } from 'react-icons/si';
 import { MdSchool, MdCode, MdEmail, MdLocationOn, MdCake } from 'react-icons/md';
 import { NavLink } from 'react-router-dom';
 
@@ -16,6 +16,8 @@ const floatingTechIcons = [
   <SiSymfony className="text-gray-300" />,
   <SiExpress className="text-gray-400" />,
   <SiMysql className="text-orange-500" />,
+  <SiPostgresql className="text-gray-500" />,
+
 ];
 
 export default function About() {
@@ -194,6 +196,10 @@ export default function About() {
                   <div className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1 sm:py-2 rounded-full bg-gray-800/50 text-orange-500 border border-orange-500/20 hover:bg-orange-500/10 hover:border-orange-500/40 hover:text-orange-300 transition-all text-sm sm:text-base">
                     <SiMysql className="text-lg sm:text-xl" />
                     <span>MySQL</span>
+                  </div>
+                   <div className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1 sm:py-2 rounded-full bg-gray-800/50 text-gray-500 border border-orange-500/20 hover:bg-orange-500/10 hover:border-orange-500/40 hover:text-orange-300 transition-all text-sm sm:text-base">
+                    <SiPostgresql className="text-lg sm:text-xl" />
+                    <span>PostgreSQL</span>
                   </div>
                   <div className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1 sm:py-2 rounded-full bg-gray-800/50 text-gray-300 border border-gray-600/20 hover:bg-gray-700/50 hover:border-gray-500/40 transition-all text-sm sm:text-base">
                     <SiSymfony className="text-lg sm:text-xl" />

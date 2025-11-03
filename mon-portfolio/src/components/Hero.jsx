@@ -1,5 +1,5 @@
 import React from 'react';
-import profil from '../img/profil.jpeg';
+import profil from '../img/cv.png';
 import cv from '../cv/SANTATRINIAINA_Feno_Nasandratra_CV.pdf';
 import { NavLink } from 'react-router-dom';
 

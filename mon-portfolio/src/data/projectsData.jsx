@@ -1,11 +1,5 @@
 // src/data/projectsData.js
 
-// Portfolio
-import portfolio from '../img/portfolio.jpg';
-import about from '../img/about.jpg';
-import skill from '../img/skill.jpg';
-import projet from '../img/projet.jpg';
-import contact from '../img/contact1.jpg';
 
 // MTEFOP
 import ftr from '../img/frt.png';
@@ -35,17 +29,9 @@ import ses5 from '../img/ses5.jpg';
 import ses6 from '../img/ses6.jpg';
 
 const projects = [
+  
   {
     id: 1,
-    title: "Portfolio personnel",
-    description: "Site portfolio développé avec React et Tailwind CSS, conçu pour présenter mes compétences, projets réalisés et expériences professionnelles.",
-    tags: ["React", "Tailwind CSS", "Vite"],
-    images: [portfolio, about, skill, projet, contact],
-    link: "https://santatriniaina-portfolio.vercel.app",
-    projet: "Projet personnel"
-  },
-  {
-    id: 2,
     title: "Standard de service (MTEFOP)",
     description: "Plateforme web à destination des agents de l’État et du grand public, facilitant l’accès aux informations sur la fonction publique, les démarches administratives et les réformes en cours.",
     tags: ["React", "CSS", "Node", "Express", "MySQL"],
@@ -54,7 +40,7 @@ const projects = [
     projet: "Projet en cours - en collaboration avec RANDRIANIRIANA Toky Herizo"
   },
   {
-    id: 3,
+    id: 2,
     title: "FactureApp - 4K Design",
     description: "Application complète de gestion des factures et des stocks pour l’entreprise 4K-Design. Elle propose des fonctionnalités de gestion des utilisateurs, clients, produits et factures via une interface intuitive.",
     tags: ["React + Vite", "Tailwind CSS", "Node", "Express", "MySQL"],
@@ -63,7 +49,7 @@ const projects = [
     projet: "Projet personnel"
   },
   {
-    id: 4,
+    id: 3,
     title: "Plateforme Digitale - SansPanera",
     description: "Plateforme en ligne dédiée aux échanges commerciaux et locatifs à Madagascar, avec un système d’annonces payantes intégré pour les utilisateurs.",
     tags: ["React + Vite", "Node.js", "Express", "MySQL", "Tailwind CSS"],
@@ -72,7 +58,7 @@ const projects = [
     projet: "Projet personnel en cours"
   },
   {
-    id: 5,
+    id: 4,
     title: "S.E.S MED",
     description: "Application web pour l’entreprise SESMED, permettant la gestion des utilisateurs, des clients, des produits et des factures, avec une interface moderne et performante.",
     tags: ["Angular", "Symfony", "Docker", "Tailwind CSS"],
