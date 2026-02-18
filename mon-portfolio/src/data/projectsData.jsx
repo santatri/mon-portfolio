@@ -28,6 +28,16 @@ import ses4 from '../img/ses4.jpg';
 import ses5 from '../img/ses5.jpg';
 import ses6 from '../img/ses6.jpg';
 
+//cfpm
+
+import cfpm1 from '../img/cf1.jpg';
+import cfpm2 from '../img/cf2.jpg';
+import cfpm3 from '../img/cf3.jpg';
+import cfpm4 from '../img/cf4.jpg';
+import cfpm5 from '../img/cf5.jpg';
+import cfpm6 from '../img/cf6.jpg';
+import cfpm7 from '../img/cf7.jpg';
+
 const projects = [
   
   {
@@ -64,8 +74,17 @@ const projects = [
     tags: ["Angular", "Symfony", "Docker", "Tailwind CSS"],
     images: [ses5, ses2, ses3, ses4, ses6, ses1],
     link: "https://ses-med.com",
-    projet: "Contribution au développement du module de bons de commande"
-  }
+    projet: "Contribution au développement du module de bons de commande et plusieurs fonctionnalités de l’application"
+  },
+  {
+    id: 5,
+    title: "GE_CFPM",
+    description: "Application web pour la gestion d'un centre de  formations(CFPM de Madagascar), avec une interface conviviale et des fonctionnalités avancées.",
+    tags: ["React", "Node.js", "Express","PostgreSQL", "Tailwind CSS"],
+    images: [cfpm1, cfpm2, cfpm3, cfpm4, cfpm5, cfpm6, cfpm7],
+    link: "",
+    projet: "Projet professionnel en cours"
+  },
 ];
 
 export default projects;
