@@ -1,23 +1,36 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import About from './pages/About';
-import Projects from './pages/Projects';
-import Contact from './pages/Contact';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import HeroSection from './sections/HeroSection';
+import AboutSection from './sections/AboutSection';
+import ExperienceSection from './sections/ExperienceSection';
+import SkillsSection from './sections/SkillsSection';
+import ProjectsSection from './sections/ProjectsSection';
+import ContactSection from './sections/ContactSection';
 import NotFound from './pages/NotFound';
-import Skills from './components/Skills';
+import { Routes, Route } from 'react-router-dom';
+
+function MainPage() {
+  return (
+    <div className="font-sans text-gray-800">
+      <Header />
+      <main>
+        <HeroSection />
+        <AboutSection />
+        <ExperienceSection />
+        <SkillsSection />
+        <ProjectsSection />
+        <ContactSection />
+      </main>
+      <Footer />
+    </div>
+  );
+}
 
 export default function App() {
   return (
-    <div className="font-sans text-gray-800">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/skills" element={<Skills />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/404" element={<NotFound />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<MainPage />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }
