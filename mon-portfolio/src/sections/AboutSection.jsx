@@ -1,139 +1,120 @@
-import { FaReact, FaNodeJs } from 'react-icons/fa';
-import { SiTailwindcss, SiExpress, SiMysql, SiTypescript, SiJavascript, SiAngular, SiSymfony, SiPostgresql } from 'react-icons/si';
-import { MdSchool, MdCode, MdEmail, MdLocationOn, MdCake } from 'react-icons/md';
+import { MdCode, MdLocationOn } from 'react-icons/md';
 
 export default function AboutSection() {
     return (
-        <section id="apropos" className="relative bg-gradient-to-br from-gray-900 via-gray-850 to-gray-800 py-20 px-4 sm:px-6 overflow-hidden">
-            {/* Decorative blobs */}
-            <div className="absolute top-0 left-1/4 w-80 h-80 bg-emerald-500/5 rounded-full filter blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/5 rounded-full filter blur-3xl pointer-events-none" />
+        <section id="apropos" className="relative bg-gray-950 py-24 px-4 sm:px-6 overflow-hidden">
+            {/* Background elements */}
+            <div className="absolute top-1/4 left-0 w-96 h-96 bg-indigo-600/5 rounded-full filter blur-[100px] pointer-events-none animate-pulse-slow" />
+            <div className="absolute bottom-1/4 right-0 w-80 h-80 bg-violet-600/5 rounded-full filter blur-[100px] pointer-events-none animate-pulse-slow" style={{ animationDelay: '2s' }} />
 
             <div className="container mx-auto max-w-6xl relative z-10">
                 {/* Title */}
-                <div className="text-center mb-14">
-                    <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-2">Qui suis-je ?</p>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500 mb-4">
-                        À propos de moi
+                <div className="mb-16">
+                    <p className="text-indigo-400 font-mono text-sm tracking-[0.3em] uppercase mb-4">L'humain derrière le code</p>
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 tracking-tighter">
+                        À propos de <span className="text-gradient-indigo">moi</span>
                     </h2>
-                    <div className="w-20 h-1 bg-gradient-to-r from-emerald-500 to-cyan-500 mx-auto rounded-full" />
+                    <div className="w-24 h-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 rounded-full" />
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                    {/* Left column */}
-                    <div className="space-y-6">
-                        {/* Personal info card */}
-                        <div className="p-6 rounded-2xl bg-gray-800/50 border border-gray-700/60 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300">
-                            <h3 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 to-cyan-400 mb-5">
-                                SANTATRINIAINA Feno Nasandratra
-                            </h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    {/* Main Story Card */}
+                    <div className="lg:col-span-7 group">
+                        <div className="glass-card p-8 sm:p-10 rounded-[2.5rem] glass-card-hover">
+                            <h3 className="text-2xl font-bold text-white mb-6">Je conçois des solutions métiers concrètes.</h3>
+                            <div className="space-y-6 text-gray-400 leading-relaxed text-lg">
+                                <p>
+                                    Étudiant en Génie Logiciel à l'ISPM, je participe à la conception et au développement d'applications web répondant à des besoins métiers concrets.
+                                </p>
+                                <p>
+                                    Mon expérience couvre l'ensemble du cycle de développement :
+                                </p>
+                                <ul className="list-disc list-inside space-y-2 text-gray-300">
+                                    <li>Analyse des besoins</li>
+                                    <li>Conception technique</li>
+                                    <li>Modélisation des bases de données</li>
+                                    <li>Développement frontend</li>
+                                    <li>Développement backend</li>
+                                    <li>Déploiement</li>
+                                    <li>Maintenance et évolutions</li>
+                                </ul>
+                                <p>
+                                    J'accorde une attention particulière à la qualité du code, à la performance des applications et à l'expérience utilisateur afin de proposer des solutions fiables et durables.
+                                </p>
+                            </div>
+
+                            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {[
-                                    { icon: <MdLocationOn className="text-cyan-400 text-xl" />, label: 'Localisation', value: 'Antananarivo, Madagascar' },
-                                    { icon: <MdCake className="text-emerald-400 text-xl" />, label: 'Date de naissance', value: '04 Mars 2002' },
-                                    { icon: <MdEmail className="text-blue-400 text-xl" />, label: 'Email', value: 'santatriniainafeno01@gmail.com' },
-                                    { icon: <MdSchool className="text-purple-400 text-xl" />, label: 'Éducation', value: 'ISPM - IGGLIA' },
+                                    { label: 'Qualité', text: 'Projets fiables et maintenables', icon: '💎' },
+                                    { label: 'Fiabilité', text: 'Applications stables en production', icon: '🛡️' },
+                                    { label: 'Adaptabilité', text: 'Solutions sur mesure pour vos besoins', icon: '🔄' },
+                                    { label: 'Apprentissage continu', text: 'Évolution constante des compétences', icon: '📚' },
                                 ].map((item, i) => (
-                                    <div key={i} className="flex items-center gap-3 p-3 bg-gray-800/60 rounded-xl border border-gray-700/50 hover:border-cyan-400/20 transition-all">
-                                        {item.icon}
-                                        <div>
-                                            <p className="text-xs text-gray-400">{item.label}</p>
-                                            <p className="text-sm text-gray-200">{item.value}</p>
-                                        </div>
+                                    <div key={i} className="bg-white/5 border border-white/5 p-5 rounded-3xl transition-all hover:bg-white/10">
+                                        <span className="text-2xl mb-3 block">{item.icon}</span>
+                                        <p className="text-[10px] uppercase tracking-widest text-indigo-400 font-bold mb-1">{item.label}</p>
+                                        <p className="text-sm text-white/90 font-medium">{item.text}</p>
                                     </div>
                                 ))}
                             </div>
-                        </div>
-
-                        {/* Education */}
-                        <div className="p-6 rounded-2xl bg-gray-800/50 border border-gray-700/60 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300">
-                            <div className="flex items-center gap-3 text-cyan-400 mb-3">
-                                <MdSchool className="text-2xl" />
-                                <h3 className="text-lg font-semibold">Formation académique</h3>
-                            </div>
-                            <p className="text-sm text-gray-300 mb-3">
-                                Étudiant en <span className="text-emerald-300 font-medium">Informatique de gestion — Génie Logiciel et Intelligence Artificielle</span> à l'Institut Supérieur Polytechnique de Madagascar (ISPM).
-                            </p>
-                            <span className="text-xs text-gray-400 bg-gray-700/50 px-3 py-1 rounded-full">2021 — Présent</span>
-                        </div>
-
-                        {/* Expertise */}
-                        <div className="p-6 rounded-2xl bg-gray-800/50 border border-gray-700/60 backdrop-blur-sm hover:border-emerald-500/30 transition-all duration-300">
-                            <div className="flex items-center gap-3 text-cyan-400 mb-3">
-                                <MdCode className="text-2xl" />
-                                <h3 className="text-lg font-semibold">Domaines d'expertise</h3>
-                            </div>
-                            <ul className="space-y-2 text-sm text-gray-300">
-                                {[
-                                    'Développement Frontend avec React.js et Angular',
-                                    'Développement Backend avec Node.js/Express et Symfony',
-                                    'Conception UI/UX avec Tailwind CSS',
-                                    'Architecture des bases de données relationnelles',
-                                ].map((item, i) => (
-                                    <li key={i} className="flex items-start group">
-                                        <span className="text-emerald-400 mr-3 text-base group-hover:text-cyan-400 transition-all">▹</span>
-                                        <span className="group-hover:text-white transition-all">{item}</span>
-                                    </li>
-                                ))}
-                            </ul>
                         </div>
                     </div>
 
-                    {/* Right column */}
-                    <div className="space-y-6">
-                        {/* Tech skills tags */}
-                        <div className="p-6 rounded-2xl bg-gray-800/50 border border-gray-700/60 backdrop-blur-sm hover:border-emerald-500/30 transition-all duration-300">
-                            <h3 className="text-lg font-semibold text-white mb-5 flex items-center gap-2">
-                                <span className="w-2.5 h-2.5 bg-cyan-400 rounded-full animate-pulse" />
-                                Compétences Techniques
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
+                    {/* Sidebar Cards */}
+                    <div className="lg:col-span-5 space-y-6">
+                        {/* Info Card */}
+                        <div className="glass-card p-8 rounded-[2.5rem] glass-card-hover border-indigo-500/20">
+                            <div className="flex items-center gap-4 mb-8">
+                                <div className="w-12 h-12 rounded-2xl bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                                    <MdLocationOn className="text-2xl" />
+                                </div>
+                                <h4 className="text-xl font-bold text-white">Bio Express</h4>
+                            </div>
+                            
+                            <div className="space-y-4">
                                 {[
-                                    { icon: <FaReact />, label: 'React.js', color: 'text-cyan-300 border-cyan-500/20 hover:bg-cyan-500/10' },
-                                    { icon: <SiTailwindcss />, label: 'Tailwind CSS', color: 'text-cyan-400 border-cyan-500/20 hover:bg-cyan-500/10' },
-                                    { icon: <FaNodeJs />, label: 'Node.js', color: 'text-green-400 border-green-500/20 hover:bg-green-500/10' },
-                                    { icon: <SiExpress />, label: 'Express', color: 'text-gray-300 border-gray-600/20 hover:bg-gray-700/50' },
-                                    { icon: <SiTypescript />, label: 'TypeScript', color: 'text-blue-400 border-blue-500/20 hover:bg-blue-500/10' },
-                                    { icon: <SiJavascript />, label: 'JavaScript', color: 'text-yellow-400 border-yellow-500/20 hover:bg-yellow-500/10' },
-                                    { icon: <SiMysql />, label: 'MySQL', color: 'text-orange-500 border-orange-500/20 hover:bg-orange-500/10' },
-                                    { icon: <SiPostgresql />, label: 'PostgreSQL', color: 'text-sky-400 border-sky-500/20 hover:bg-sky-500/10' },
-                                    { icon: <SiSymfony />, label: 'Symfony', color: 'text-gray-300 border-gray-600/20 hover:bg-gray-700/50' },
-                                    { icon: <SiAngular />, label: 'Angular', color: 'text-red-500 border-red-500/20 hover:bg-red-500/10' },
-                                ].map((skill, i) => (
-                                    <div key={i} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gray-800/60 text-sm border transition-all ${skill.color}`}>
-                                        {skill.icon}
-                                        <span>{skill.label}</span>
+                                    { label: 'Basé à', value: 'Antananarivo, MG', icon: '📍' },
+                                    { label: 'Email', value: 'santatriniainafeno01@gmail.com', icon: '📧', isEmail: true },
+                                    { label: 'Stack', value: 'React • Node.js • Symfony • Angular', icon: '⚡' },
+                                    { label: 'Formation', value: 'ISPM - IGGLIA', icon: '🎓' },
+                                ].map((item, i) => (
+                                    <div 
+                                        key={i} 
+                                        className={`flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/5 transition-all hover:border-indigo-500/30 group/item ${item.isEmail ? 'cursor-pointer' : ''}`}
+                                        onClick={() => {
+                                            if (item.isEmail) {
+                                                navigator.clipboard.writeText(item.value);
+                                                alert('Email copié !');
+                                            }
+                                        }}
+                                    >
+                                        <div className="flex flex-col">
+                                            <span className="text-[10px] uppercase tracking-widest text-gray-500 font-bold">{item.label}</span>
+                                            <span className={`text-sm font-medium ${item.isEmail ? 'text-indigo-300 group-hover/item:text-indigo-200' : 'text-gray-300'}`}>
+                                                {item.value}
+                                            </span>
+                                        </div>
+                                        <span className="text-lg opacity-40 group-hover/item:opacity-100 transition-opacity">{item.icon}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
-                        {/* About me */}
-                        <div className="p-6 rounded-2xl bg-gray-800/50 border border-gray-700/60 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300">
-                            <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-                                <span className="w-2.5 h-2.5 bg-blue-400 rounded-full animate-pulse" />
-                                Qui suis-je ?
-                            </h3>
-                            <div className="space-y-3 text-sm text-gray-300 leading-relaxed">
-                                <p>Passionné par le développement web depuis mes études, je me spécialise dans la création d'applications full stack performantes et esthétiques.</p>
-                                <p>Mon parcours à l'ISPM m'a permis d'acquérir des compétences solides en génie logiciel tout en développant une approche pratique grâce à divers projets personnels et professionnels.</p>
-                                <p>Je m'intéresse particulièrement aux architectures modernes, aux bonnes pratiques de développement et à l'expérience utilisateur.</p>
+                        {/* Quick Skills Card */}
+                        <div className="glass-card p-8 rounded-[2.5rem] glass-card-hover border-violet-500/20">
+                            <div className="flex items-center gap-4 mb-6">
+                                <div className="w-12 h-12 rounded-2xl bg-violet-500/20 flex items-center justify-center text-violet-400">
+                                    <MdCode className="text-2xl" />
+                                </div>
+                                <h4 className="text-xl font-bold text-white">Focus Technique</h4>
                             </div>
-                        </div>
-
-                        {/* CTA */}
-                        <div className="p-6 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700/60 backdrop-blur-sm hover:border-emerald-500/30 transition-all duration-300">
-                            <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-                                <span className="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse" />
-                                Travaillons ensemble
-                            </h3>
-                            <p className="text-sm text-gray-300 mb-5">Vous avez un projet ou une opportunité ? N'hésitez pas à me contacter.</p>
-                            <button
-                                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="w-full flex items-center justify-center bg-gradient-to-r from-emerald-400 to-cyan-500 text-gray-900 font-semibold px-6 py-3 rounded-lg hover:from-emerald-500 hover:to-cyan-600 transition-all shadow-lg hover:shadow-cyan-500/30 hover:scale-105 text-sm"
-                            >
-                                Contactez-moi
-                            </button>
+                            <div className="flex flex-wrap gap-2">
+                                {['React', 'Node.js', 'Express', 'Tailwind', 'PostgreSQL', 'Docker', 'Git'].map(skill => (
+                                    <span key={skill} className="px-4 py-2 rounded-xl bg-white/5 border border-white/5 text-sm text-gray-400 hover:text-white hover:border-violet-500/40 transition-all">
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

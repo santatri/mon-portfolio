@@ -94,60 +94,93 @@ export default function ContactSection() {
     };
 
     return (
-        <section id="contact" className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 py-20 px-4 sm:px-6 overflow-hidden">
-            <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-emerald-500/5 rounded-full filter blur-3xl pointer-events-none" />
-            <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-500/5 rounded-full filter blur-3xl pointer-events-none" />
+        <section id="contact" className="relative bg-gray-950 py-24 px-4 sm:px-6 overflow-hidden">
+            {/* Background effects */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-indigo-600/5 rounded-full filter blur-[150px] pointer-events-none" />
 
-            <div className="container mx-auto max-w-4xl relative z-10">
+            <div className="container mx-auto max-w-5xl relative z-10">
                 {/* Title */}
-                <div className="text-center mb-14">
-                    <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-2">Travaillons ensemble</p>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500 mb-4">
-                        Contactez-moi
+                <div className="mb-16 text-center">
+                    <p className="text-indigo-400 font-mono text-sm tracking-[0.3em] uppercase mb-4">Vous avez une idée ?</p>
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 tracking-tighter">
+                        Vous avez un projet, une idée ou un besoin spécifique ?
                     </h2>
-                    <div className="w-20 h-1 bg-gradient-to-r from-emerald-500 to-cyan-500 mx-auto rounded-full" />
-                    <p className="text-gray-400 mt-4 max-w-lg mx-auto text-sm sm:text-base">
-                        Vous avez un projet, une opportunité ou juste envie d'échanger ? N'hésitez pas !
+                    <p className="mx-auto max-w-3xl text-sm text-gray-400 sm:text-base leading-relaxed">
+                        Je suis disponible pour discuter de solutions web adaptées à vos objectifs et contribuer à la réalisation de projets innovants. Réponse sous 24 heures.
                     </p>
+                    <div className="mt-8 w-24 h-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 rounded-full mx-auto" />
                 </div>
 
-                {/* Contact grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {contacts.map((contact) => (
-                        <div
-                            key={contact.id}
-                            onClick={contact.action}
-                            className={`${contact.color} backdrop-blur-sm border rounded-xl p-5 cursor-pointer transition-all duration-300 hover:scale-[1.02] hover:shadow-lg flex items-start gap-4 group`}
-                        >
-                            <div className={`p-2.5 rounded-lg bg-gray-800/60 ${contact.iconColor} flex-shrink-0 group-hover:scale-110 transition-transform`}>
-                                {contact.icon}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                                <h3 className="text-sm font-semibold text-white/90 mb-0.5">{contact.name}</h3>
-                                <p className="text-sm text-white/70 break-all">{contact.value}</p>
-                                {(contact.id === 1 || contact.id === 2) && (
-                                    <button
-                                        onClick={(e) => {
-                                            e.stopPropagation();
-                                            copyToClipboard(contact.value, contact.copyKey);
-                                        }}
-                                        className="mt-2 text-xs px-2.5 py-0.5 rounded-md bg-white/10 hover:bg-white/20 text-cyan-400 hover:text-cyan-300 transition"
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    {/* Contact Info */}
+                    <div className="lg:col-span-5 space-y-6">
+                        <div className="glass-card p-10 rounded-[2.5rem] border-indigo-500/10">
+                            <h3 className="text-2xl font-black text-white mb-8">Coordonnées</h3>
+                            <div className="space-y-6">
+                                {contacts.slice(0, 4).map((contact) => (
+                                    <div
+                                        key={contact.id}
+                                        onClick={contact.action}
+                                        className="group flex items-center gap-5 p-4 rounded-2xl bg-white/5 border border-white/5 hover:border-indigo-500/30 transition-all cursor-pointer"
                                     >
-                                        {copied === contact.copyKey ? '✓ Copié !' : `Copier ${contact.id === 1 ? 'le numéro' : "l'email"}`}
-                                    </button>
-                                )}
+                                        <div className={`w-12 h-12 rounded-xl bg-indigo-500/10 ${contact.iconColor} flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                                            {contact.icon}
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-[10px] font-black uppercase tracking-widest text-gray-500 mb-1">{contact.name}</p>
+                                            <p className="text-sm font-bold text-white/90 truncate">{contact.value}</p>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
-                    ))}
-                </div>
 
-                {/* Availability note */}
-                <div className="mt-10 text-center p-6 rounded-2xl bg-gray-800/40 border border-gray-700/40 backdrop-blur-sm">
-                    <div className="flex items-center justify-center gap-2 mb-2">
-                        <span className="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse" />
-                        <span className="text-emerald-400 font-medium text-sm">Disponible pour de nouvelles missions</span>
+                        {/* Status Card */}
+                        <div className="glass-card p-8 rounded-[2rem] border-emerald-500/10">
+                            <div className="flex items-center gap-4">
+                                <div className="relative">
+                                    <div className="w-4 h-4 bg-emerald-500 rounded-full animate-ping absolute inset-0" />
+                                    <div className="w-4 h-4 bg-emerald-500 rounded-full relative" />
+                                </div>
+                                <div>
+                                    <p className="text-sm font-black text-white uppercase tracking-widest">Disponible</p>
+                                    <p className="text-xs text-emerald-400/80">Pour de nouvelles missions freelances</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p className="text-gray-400 text-sm">Basé à Antananarivo, Madagascar — Disponible à distance ou en présentiel</p>
+
+                    {/* Socials & More */}
+                    <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {contacts.slice(4).map((contact) => (
+                            <div
+                                key={contact.id}
+                                onClick={contact.action}
+                                className="glass-card p-8 rounded-[2.5rem] flex flex-col items-center text-center group cursor-pointer border-white/5 hover:border-indigo-500/30 transition-all"
+                            >
+                                <div className="w-16 h-16 rounded-3xl bg-white/5 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 transition-transform group-hover:bg-indigo-500/10 group-hover:text-indigo-400">
+                                    {contact.icon}
+                                </div>
+                                <h4 className="text-lg font-black text-white mb-2">{contact.name}</h4>
+                                <p className="text-sm text-gray-500 mb-6">{contact.value}</p>
+                                <div className="mt-auto w-full py-3 rounded-xl bg-white/5 text-[10px] font-black uppercase tracking-widest text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                                    Visiter
+                                </div>
+                            </div>
+                        ))}
+
+                        {/* Direct Email Card */}
+                        <div className="sm:col-span-2 glass-card p-10 rounded-[2.5rem] bg-gradient-to-br from-indigo-600/20 to-violet-600/20 border-white/10 flex flex-col items-center text-center">
+                            <h3 className="text-2xl font-black text-white mb-4">Besoin d'un dev réactif ?</h3>
+                            <p className="text-gray-400 mb-8 max-w-sm">Envoyez-moi un message direct ou discutons sur LinkedIn pour une réponse sous 24h.</p>
+                            <button 
+                                onClick={() => window.open('mailto:santatriniainafeno01@gmail.com')}
+                                className="px-10 py-4 rounded-2xl bg-white text-gray-950 font-black uppercase tracking-widest text-xs hover:bg-indigo-50 transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-white/10"
+                            >
+                                santatriniainafeno01@gmail.com
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

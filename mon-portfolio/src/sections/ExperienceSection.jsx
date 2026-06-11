@@ -1,73 +1,109 @@
-import projects from '../data/projectsData';
-
 const experienceItems = [
     {
         id: 1,
-        title: 'Standard de service — MTEFOP',
-        role: 'Développeur Full Stack (Stage)',
+        title: 'MTEFOP',
+        role: 'Développeur Web – Stage en binôme',
         company: 'MTEFOP',
-        context: 'Collaboration avec RANDRIANIRIANA Toky Herizo sur une plateforme officielle à destination des agents de l\'État.',
+        context: 'Participation au développement d’une plateforme destinée aux agents de l’État afin de centraliser l’accès aux procédures administratives et aux ressources institutionnelles.',
         period: '2024 — 2025',
-        tags: ['React', 'CSS', 'Node.js', 'Express', 'MySQL'],
+        tags: ['React', 'Node.js', 'Express', 'MySQL'],
         type: 'stage',
         color: 'from-cyan-500 to-blue-600',
         icon: '🏛️',
         link: '',
+        responsibilities: [
+            'Analyse des besoins métiers',
+            'Développement frontend React',
+            'Création d’API Node.js / Express',
+            'Intégration et tests fonctionnels',
+        ],
+        result: 'Centralisation de l’accès aux ressources administratives et amélioration de l’efficacité des agents.',
     },
     {
         id: 2,
         title: 'FactureApp — 4K Design',
-        role: 'Développeur Full Stack (Stage en entreprise)',
+        role: 'Responsable Développement & Déploiement',
         company: 'AST COM Web',
-        context: 'Développement complet d\'une application de gestion de factures et de stocks pour l\'entreprise 4K-Design.',
-        period: '2024 -2025',
-        tags: ['React + Vite', 'Tailwind CSS', 'Node.js', 'Express', 'MySQL'],
+        context: 'Conception, développement et mise en production d’une application de facturation et de gestion de stock destinée à l’entreprise 4K Design.',
+        period: '2024 — 2025',
+        tags: ['React', 'Node.js', 'Express', 'MySQL', 'Tailwind CSS'],
         type: 'stage',
         color: 'from-emerald-400 to-cyan-500',
         icon: '💼',
         link: 'https://4kdesigns-mada.com',
+        responsibilities: [
+            'Analyse des besoins et modélisation de la base de données',
+            'Développement frontend React',
+            'Développement backend Node.js / Express',
+            'Création des API et gestion de la facturation',
+            'Tests, déploiement et maintenance',
+        ],
+        result: 'Digitalisation du processus de facturation et amélioration du suivi des stocks grâce à une solution centralisée.',
     },
     {
         id: 3,
         title: 'S.E.S MED',
-        role: 'Développeur Full Stack (Responsable des mises à jour)',
-        company: 'S.E.S MED',
-        context: 'Responsable de toutes les mises à jour, création de modules et implémentation de fonctionnalités clés pour le module de bons de commande.',
-        period: '2025 - Aujourd\'hui',
+        role: 'Responsable des Mises à Jour et Évolutions Fonctionnelles',
+        company: 'AST COM Web',
+        context: 'Participation à la maintenance et à l’évolution d’un CRM médical international utilisé pour la gestion des opérations métier et des commandes.',
+        period: '2025 — Aujourd’hui',
         tags: ['Angular', 'Symfony', 'Docker', 'Tailwind CSS'],
         type: 'professionnel',
         color: 'from-red-400 to-pink-500',
         icon: '🔧',
         link: 'https://ses-med.com',
+        responsibilities: [
+            'Mises à jour fonctionnelles et correctifs',
+            'Ajout de nouvelles fonctionnalités client',
+            'Optimisation des flux métier',
+            'Maintenance et support technique',
+        ],
+        result: 'Renforcement de la stabilité du CRM et amélioration des modules métier pour un usage international.',
     },
     {
         id: 4,
         title: 'GE_CFPM',
-        role: 'Développeur Full Stack (Projet professionnel)',
+        role: 'Responsable Développement & Déploiement',
         company: 'GE_CFPM',
-        context: 'Application web complète pour la gestion administrative d\'un centre de formation professionnel .',
-        period: '2025 — Aujourd\'hui',
+        context: 'Conception et développement complet d’un système de gestion administrative destiné à un centre de formation professionnelle.',
+        period: '2025 — Aujourd’hui',
         tags: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Tailwind CSS'],
         type: 'professionnel',
         color: 'from-violet-400 to-purple-600',
         icon: '🏢',
         link: '',
+        responsibilities: [
+            'Analyse fonctionnelle et architecture technique',
+            'Conception de la base de données PostgreSQL',
+            'Développement frontend React',
+            'Développement backend Node.js / Express',
+            'Déploiement et maintenance continue',
+        ],
+        result: 'Centralisation des opérations administratives et amélioration du suivi des apprenants et des formations.',
     },
     {
         id: 5,
-        title: 'Plateforme Digitale — SansPanera',
-        role: 'Développeur Full Stack (Projet personnel)',
-        company: 'SansPanera',
-        context: 'Plateforme en ligne dédiée aux échanges commerciaux et locatifs à Madagascar, avec un système d\'annonces payantes.',
+        title: 'SANSPANERA',
+        role: 'Développement de plateforme locale',
+        company: 'Projet personnel',
+        context: 'Développement d’une plateforme numérique locale dédiée aux échanges commerciaux et locatifs à Madagascar.',
         period: '2025 — En cours',
-        tags: ['React + Vite', 'Node.js', 'Express', 'MySQL', 'Tailwind CSS'],
+        tags: ['React', 'Node.js', 'Express', 'MySQL', 'Tailwind CSS'],
         type: 'personnel',
         color: 'from-orange-400 to-amber-500',
         icon: '🌐',
         link: '',
+        responsibilities: [
+            'Gestion des annonces et des comptes utilisateurs',
+            'Développement d’une marketplace locale',
+            'Mise en place d’un modèle économique d’annonces payantes',
+            'Tests et validation des parcours utilisateurs',
+        ],
+        result: 'Création d’une plateforme locale de mise en relation commerciale et locative avec un modèle économique basé sur les annonces payantes.',
     },
 ];
 const typeColors = {
+    stage: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
     collaboration: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
     freelance: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
     contribution: 'bg-red-500/20 text-red-300 border-red-500/30',
@@ -77,74 +113,91 @@ const typeColors = {
 
 export default function ExperienceSection() {
     return (
-        <section id="experience" className="relative bg-gradient-to-br from-gray-800 via-gray-900 to-gray-800 py-20 px-4 sm:px-6 overflow-hidden">
-            <div className="absolute top-1/3 left-0 w-64 h-64 bg-violet-500/5 rounded-full filter blur-3xl pointer-events-none" />
-            <div className="absolute bottom-1/3 right-0 w-80 h-80 bg-cyan-500/5 rounded-full filter blur-3xl pointer-events-none" />
+        <section id="experience" className="relative bg-gray-950 py-24 px-4 sm:px-6 overflow-hidden">
+            {/* Background Glowing Blobs */}
+            <div className="absolute top-1/2 left-0 w-80 h-80 bg-indigo-600/5 rounded-full filter blur-[120px] pointer-events-none" />
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-violet-600/5 rounded-full filter blur-[120px] pointer-events-none" />
 
             <div className="container mx-auto max-w-5xl relative z-10">
                 {/* Title */}
-                <div className="text-center mb-14">
-                    <p className="text-cyan-400 font-mono text-sm tracking-widest uppercase mb-2">Mon parcours</p>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500 mb-4">
-                        Expériences & Réalisations
+                <div className="mb-16 text-center lg:text-left">
+                    <p className="text-indigo-400 font-mono text-sm tracking-[0.3em] uppercase mb-4">Mon évolution</p>
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-6 tracking-tighter">
+                        Expériences & <span className="text-gradient-indigo">Réalisations</span>
                     </h2>
-                    <div className="w-20 h-1 bg-gradient-to-r from-emerald-500 to-cyan-500 mx-auto rounded-full" />
-                    <p className="text-gray-400 mt-4 max-w-xl mx-auto text-sm sm:text-base">
-                        Mes projets professionnels, freelance et collaborations — chaque mission m'a permis de progresser.
-                    </p>
+                    <div className="w-24 h-1.5 bg-gradient-to-r from-indigo-500 to-violet-600 rounded-full mx-auto lg:mx-0" />
                 </div>
 
                 {/* Timeline */}
                 <div className="relative">
-                    {/* Vertical line */}
-                    <div className="absolute left-6 sm:left-8 top-0 bottom-0 w-px bg-gradient-to-b from-emerald-500/40 via-cyan-500/40 to-blue-500/40 hidden sm:block" />
+                    {/* Vertical line with gradient */}
+                    <div className="absolute left-6 sm:left-12 top-0 bottom-0 w-1 bg-gradient-to-b from-indigo-500/50 via-violet-500/50 to-transparent hidden sm:block rounded-full" />
 
-                    <div className="space-y-8">
+                    <div className="space-y-12">
                         {experienceItems.map((item, index) => (
-                            <div key={item.id} className="relative flex gap-6 sm:gap-10 group">
-                                {/* Timeline dot */}
+                            <div key={item.id} className="relative flex gap-8 sm:gap-16 group">
+                                {/* Timeline Circle with Icon */}
                                 <div className="hidden sm:flex flex-col items-center">
-                                    <div className={`w-16 h-16 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center text-2xl shadow-lg flex-shrink-0 group-hover:scale-110 transition-transform`}>
+                                    <div className={`w-24 h-24 rounded-3xl bg-gray-900 border border-white/10 flex items-center justify-center text-3xl shadow-2xl z-10 group-hover:border-indigo-500/50 transition-all duration-500 group-hover:shadow-indigo-500/20 group-hover:-translate-y-1`}>
+                                        <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${item.color} opacity-10 group-hover:opacity-20 transition-opacity`} />
                                         {item.icon}
                                     </div>
                                 </div>
 
                                 {/* Card */}
-                                <div className="flex-1 p-5 sm:p-6 rounded-2xl bg-gray-800/60 border border-gray-700/60 backdrop-blur-sm hover:border-cyan-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/5">
-                                    <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                                <div className="flex-1 glass-card p-6 sm:p-10 rounded-[2.5rem] glass-card-hover group-hover:-translate-y-1">
+                                    <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
                                         <div>
                                             {/* Mobile icon */}
-                                            <div className={`sm:hidden inline-flex w-10 h-10 rounded-lg bg-gradient-to-br ${item.color} items-center justify-center text-lg mb-2`}>
+                                            <div className={`sm:hidden inline-flex w-12 h-12 rounded-2xl bg-white/5 border border-white/10 items-center justify-center text-xl mb-4`}>
                                                 {item.icon}
                                             </div>
-                                            <h3 className="text-lg font-bold text-white">{item.title}</h3>
-                                            <p className={`text-sm font-medium px-2.5 py-0.5 rounded-full border inline-block mt-1 ${typeColors[item.type]}`}>
-                                                {item.role}
-                                            </p>
+                                            <h3 className="text-2xl font-black text-white group-hover:text-indigo-300 transition-colors">{item.title}</h3>
+                                            <div className="flex flex-wrap items-center gap-2 mt-2">
+                                                <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${typeColors[item.type]}`}>
+                                                    {item.role}
+                                                </span>
+                                                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-full">{item.period}</span>
+                                            </div>
                                         </div>
-                                        <div className="flex flex-col items-end gap-2">
-                                            <span className="text-xs text-gray-400 bg-gray-700/50 px-3 py-1 rounded-full font-mono">{item.period}</span>
-                                            {item.link && (
-                                                <a
-                                                    href={item.link}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 transition-colors"
-                                                >
-                                                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                                    </svg>
-                                                    Voir le site
-                                                </a>
-                                            )}
+                                        
+                                        {item.link && (
+                                            <a
+                                                href={item.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-indigo-600 transition-all active:scale-90"
+                                            >
+                                                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                            </a>
+                                        )}
+                                    </div>
+
+                                    <div className="space-y-6">
+                                        <p className="text-gray-400 leading-relaxed italic border-l-2 border-indigo-500/30 pl-4">{item.context}</p>
+                                        <div className="grid gap-4 sm:grid-cols-2">
+                                            <div className="rounded-2xl bg-white/5 border border-white/10 p-4">
+                                                <p className="text-sm text-indigo-300 uppercase tracking-[0.2em] font-black mb-3">Responsabilités</p>
+                                                <ul className="space-y-2 text-sm text-gray-300 leading-relaxed">
+                                                    {item.responsibilities.map((task, idx) => (
+                                                        <li key={idx} className="flex gap-2"><span className="text-indigo-400">•</span>{task}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                            <div className="p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/10">
+                                                <p className="text-sm text-gray-300 leading-relaxed">
+                                                    <span className="font-bold text-indigo-400 uppercase text-[10px] tracking-widest block mb-1">Résultat</span>
+                                                    {item.result}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <p className="text-sm text-gray-300 mb-4 leading-relaxed">{item.context}</p>
-
-                                    <div className="flex flex-wrap gap-2">
+                                    <div className="flex flex-wrap gap-2 mt-8">
                                         {item.tags.map(tag => (
-                                            <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-gray-700/60 text-cyan-300 border border-cyan-500/20">
+                                            <span key={tag} className="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-white/5 text-gray-400 border border-white/5 group-hover:border-indigo-500/20 transition-colors">
                                                 {tag}
                                             </span>
                                         ))}
