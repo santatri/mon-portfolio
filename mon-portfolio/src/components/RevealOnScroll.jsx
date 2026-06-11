@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function RevealOnScroll({ children, threshold = 0.15 }) {
+export default function RevealOnScroll({ children, threshold = 0.05 }) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
@@ -30,8 +30,8 @@ export default function RevealOnScroll({ children, threshold = 0.15 }) {
   return (
     <div
       ref={ref}
-      className={`transition-all duration-1000 transform ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      className={`transition-all duration-300 transform ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
     >
       {children}
