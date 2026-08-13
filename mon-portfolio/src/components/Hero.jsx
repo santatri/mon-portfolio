@@ -2,11 +2,12 @@ import React from 'react';
 import profil from '../img/cv.png';
 import cv from '../cv/SANTATRINIAINA_Feno_Nasandratra_CV.pdf';
 import { NavLink } from 'react-router-dom';
+import { FaLaptopCode, FaRocket, FaTools, FaMobileAlt, FaGlobe, FaDesktop, FaChartBar, FaSave, FaBrain, FaCog, FaPlug, FaRegFileAlt, FaPuzzlePiece, FaPaintBrush, FaSearch, FaBook, FaFlask, FaLightbulb, FaMouse, FaKeyboard, FaPrint, FaBatteryFull, FaWifi, FaLock, FaUnlock, FaBroadcastTower, FaCompactDisc, FaRecordVinyl, FaGamepad, FaUserGraduate, FaUserTie } from 'react-icons/fa';
 
-const floatingEmojis = [
-  '💻', '🚀', '🔧', '📱', '🌐', '🖥️', '📊', '💾', '🧠', '⚙️', '🔌', 
-  '📝', '🧩', '🎨', '🔍', '📚', '🔬', '💡', '🖱️', '⌨️', '🖨️',
-  '🔋', '📶', '🔒', '🔓', '📡', '💿', '📀', '🕹️', '👨‍💻', '👩‍💻'
+const floatingIcons = [
+  <FaLaptopCode />, <FaRocket />, <FaTools />, <FaMobileAlt />, <FaGlobe />, <FaDesktop />, <FaChartBar />, <FaSave />, <FaBrain />, <FaCog />, <FaPlug />, 
+  <FaRegFileAlt />, <FaPuzzlePiece />, <FaPaintBrush />, <FaSearch />, <FaBook />, <FaFlask />, <FaLightbulb />, <FaMouse />, <FaKeyboard />, <FaPrint />,
+  <FaBatteryFull />, <FaWifi />, <FaLock />, <FaUnlock />, <FaBroadcastTower />, <FaCompactDisc />, <FaRecordVinyl />, <FaGamepad />, <FaUserGraduate />, <FaUserTie />
 ];
 
 export default function Hero() {
@@ -23,7 +24,7 @@ export default function Hero() {
     <section className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 px-4 pt-16 pb-12 sm:px-6 sm:pt-20 sm:pb-16 md:pt-24 md:pb-20">
       {/* Floating Emojis */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {floatingEmojis.map((emoji, index) => {
+        {floatingIcons.map((icon, index) => {
           const animationStyle = {
             '--size': `${0.8 + Math.random() * 1.5}rem`,
             '--duration': `${10 + Math.random() * 20}s`,
@@ -40,7 +41,7 @@ export default function Hero() {
               className="absolute text-2xl float-emoji"
               style={animationStyle}
             >
-              {emoji}
+              {icon}
             </div>
           );
         })}

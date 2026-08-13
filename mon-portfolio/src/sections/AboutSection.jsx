@@ -1,4 +1,5 @@
 import { MdCode, MdLocationOn } from 'react-icons/md';
+import { FaGem, FaShieldAlt, FaExchangeAlt, FaBook, FaMapMarkerAlt, FaEnvelope, FaBolt, FaGraduationCap } from 'react-icons/fa';
 
 export default function AboutSection() {
     return (
@@ -45,10 +46,10 @@ export default function AboutSection() {
 
                             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 {[
-                                    { label: 'Qualité', text: 'Projets fiables et maintenables', icon: '💎' },
-                                    { label: 'Fiabilité', text: 'Applications stables en production', icon: '🛡️' },
-                                    { label: 'Adaptabilité', text: 'Solutions sur mesure pour vos besoins', icon: '🔄' },
-                                    { label: 'Apprentissage continu', text: 'Évolution constante des compétences', icon: '📚' },
+                                    { label: 'Qualité', text: 'Projets fiables et maintenables', icon: <FaGem /> },
+                                    { label: 'Fiabilité', text: 'Applications stables en production', icon: <FaShieldAlt /> },
+                                    { label: 'Adaptabilité', text: 'Solutions sur mesure pour vos besoins', icon: <FaExchangeAlt /> },
+                                    { label: 'Apprentissage continu', text: 'Évolution constante des compétences', icon: <FaBook /> },
                                 ].map((item, i) => (
                                     <div key={i} className="bg-white/5 border border-white/5 p-5 rounded-3xl transition-all hover:bg-white/10">
                                         <span className="text-2xl mb-3 block">{item.icon}</span>
@@ -72,11 +73,11 @@ export default function AboutSection() {
                             </div>
                             
                             <div className="space-y-4">
-                                {[
-                                    { label: 'Basé à', value: 'Antananarivo, MG', icon: '📍' },
-                                    { label: 'Email', value: 'santatriniainafeno01@gmail.com', icon: '📧', isEmail: true },
-                                    { label: 'Stack', value: 'React • Node.js • Symfony • Angular', icon: '⚡' },
-                                    { label: 'Formation', value: 'ISPM - IGGLIA', icon: '🎓' },
+                                    {[
+                                    { label: 'Basé à', value: 'Antananarivo, MG', icon: <FaMapMarkerAlt /> },
+                                    { label: 'Email', value: 'santatriniainafeno01@gmail.com', icon: <FaEnvelope />, isEmail: true },
+                                    { label: 'Stack', value: 'React • Node.js • Symfony • Angular', icon: <FaBolt /> },
+                                    { label: 'Formation', value: 'ISPM - IGGLIA', icon: <FaGraduationCap /> },
                                 ].map((item, i) => (
                                     <div 
                                         key={i} 

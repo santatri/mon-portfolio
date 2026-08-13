@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import projects from '../data/projectsData';
+import { FaLaptopCode, FaRocket, FaTools, FaMobileAlt, FaGlobe, FaDesktop, FaChartBar, FaSave, FaBrain, FaCog, FaRegFileAlt, FaPuzzlePiece, FaPaintBrush, FaSearch, FaUserGraduate, FaRobot, FaLightbulb, FaHammer, FaBook, FaFlask, FaKeyboard, FaMouse, FaCompactDisc, FaGamepad, FaStar } from 'react-icons/fa';
 
 const floatingEmojis = [
-  '💻', '🚀', '🔧', '📱', '🌐', '🖥️', '📊', '💾', '🧠', '⚙️', '🔌',
-  '📝', '🧩', '🎨', '🔍', '👨‍💻', '👩‍💻', '🤖', '💡', '🛠️', '🔨', '📚',
-  '🔬', '🧪', '⌨️', '🖱️', '💽', '📀', '🖨️', '📡', '🔋', '📶', '🎯',
-  '✨', '🌟', '💫', '🪐🧑‍🚀'
+  <FaLaptopCode />, <FaRocket />, <FaTools />, <FaMobileAlt />, <FaGlobe />, <FaDesktop />, <FaChartBar />, <FaSave />, <FaBrain />, <FaCog />, <FaRegFileAlt />,
+  <FaPuzzlePiece />, <FaPaintBrush />, <FaSearch />, <FaUserGraduate />, <FaRobot />, <FaLightbulb />, <FaHammer />, <FaBook />, <FaFlask />, <FaKeyboard />, <FaMouse />, <FaCompactDisc />, <FaGamepad />, <FaStar />
 ];
 
 export default function Projects() {

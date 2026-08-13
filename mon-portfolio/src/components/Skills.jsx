@@ -16,8 +16,9 @@ import { BsGlobe } from 'react-icons/bs';
 
 import Header from './Header';
 import Footer from './Footer';
+import { FaLaptopCode, FaRocket, FaBullseye, FaBolt, FaMobileAlt, FaTools, FaChartBar, FaGlobe, FaLightbulb, FaDesktop, FaPlug, FaRegFileAlt, FaPuzzlePiece, FaCog, FaUserGraduate } from 'react-icons/fa';
 
-const floatingEmojis = ['💻', '🚀', '🎯', '✨', '👨‍💻', '📱', '🔧', '📊', '🌐', '💡', '🖥️', '🔌', '📝', '🧩', '⚙️'];
+const floatingEmojis = [<FaLaptopCode />, <FaRocket />, <FaBullseye />, <FaBolt />, <FaUserGraduate />, <FaMobileAlt />, <FaTools />, <FaChartBar />, <FaGlobe />, <FaLightbulb />, <FaDesktop />, <FaPlug />, <FaRegFileAlt />, <FaPuzzlePiece />, <FaCog />];
 
 export default function Home() {
   const skills = {

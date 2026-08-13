@@ -1,3 +1,5 @@
+import { FaTools } from 'react-icons/fa';
+
 export default function ServicesSection() {
     const services = [
         'Applications Web Sur Mesure',
@@ -28,7 +30,7 @@ export default function ServicesSection() {
                     {services.map((service) => (
                         <div key={service} className="group rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-2xl shadow-indigo-500/5 transition hover:-translate-y-1 hover:border-indigo-500/20">
                             <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-indigo-500/10 text-indigo-300 text-2xl">
-                                🛠️
+                                <FaTools />
                             </div>
                             <h3 className="text-xl font-black text-white mb-3">{service}</h3>
                             <p className="text-sm text-gray-400 leading-relaxed">Je propose des livrables concrets, pensés pour l’usage réel et l’évolution sur le long terme.</p>

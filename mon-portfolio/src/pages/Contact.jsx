@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import { FaMobileAlt, FaEnvelope, FaPhone, FaMapMarkedAlt, FaClipboard, FaMapPin, FaHandPointUp } from 'react-icons/fa';
 
 export default function Contact() {
   const [copied, setCopied] = useState(null);
@@ -15,11 +16,10 @@ export default function Contact() {
     setTimeout(() => setCopied(null), 2000);
   };
 
-  // Emojis de contact pour le fond
+  // Icons de contact pour le fond
   const contactEmojis = [
-    '📱', '✉️', '📞', '📧', '📠', '📨', '📩', '📪', '📫', '📬', '📭', 
-    '📮', '📝', '📢', '📣', '📯', '🔔', '💬', '💭', '🗨️', '🗯️', '📲',
-    '📶', '📳', '📴', '📞', '📟', '📠', '🔋', '🔌', '📍', '🏠', '🏢'
+    <FaMobileAlt />, <FaEnvelope />, <FaPhone />, <FaEnvelope />, <FaPhone />, <FaEnvelope />, <FaEnvelope />, <FaEnvelope />, <FaEnvelope />, <FaEnvelope />, <FaEnvelope />,
+    <FaEnvelope />, <FaMapMarkedAlt />, <FaMapMarkedAlt />, <FaMapMarkedAlt />, <FaMapMarkedAlt />, <FaMapMarkedAlt />, <FaMobileAlt />, <FaMobileAlt />, <FaMapMarkedAlt />, <FaMapMarkedAlt />, <FaMapMarkedAlt />
   ];
 
   const contacts = [
@@ -162,7 +162,7 @@ export default function Contact() {
         <div className="container mx-auto max-w-4xl relative z-10">
           <h1 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-12">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-cyan-400 to-blue-500">
-              📨 Contactez-moi
+              <FaEnvelope className="inline-block mr-2" /> Contactez-moi
             </span>
           </h1>
 
@@ -187,7 +187,7 @@ export default function Contact() {
                     )}
                   </div>
                 </div>
-                {(contact.id === 1 || contact.id === 2) && (
+                      {contact.id === 1 || contact.id === 2) && (
                   <div className="mt-3 sm:mt-4 text-right">
                     <button 
                       onClick={(e) => {
@@ -196,7 +196,7 @@ export default function Contact() {
                       }}
                       className="text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-md bg-white/10 hover:bg-white/20 text-cyan-400 hover:text-cyan-300 transition"
                     >
-                      {copied === (contact.id === 1 ? 'phone' : 'email') ? '📋 Copié !' : `📋 Copier ${contact.id === 1 ? 'le numéro' : "l'email"}`}
+                            {copied === (contact.id === 1 ? 'phone' : 'email') ? <><FaClipboard className="inline-block mr-1"/>Copié !</> : <><FaClipboard className="inline-block mr-1"/> Copier {contact.id === 1 ? 'le numéro' : "l'email"}</>}
                     </button>
                   </div>
                 )}
@@ -211,7 +211,7 @@ export default function Contact() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <h2 className="text-xl sm:text-2xl font-semibold text-white/90">📍 Localisation</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-white/90"><FaMapPin className="inline-block mr-2"/>Localisation</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -223,9 +223,9 @@ export default function Contact() {
                 <p className="text-sm sm:text-base text-white/80 mb-3 sm:mb-4">
                   Pour une collaboration en personne, n'hésitez pas à me contacter.
                 </p>
-                <div className="bg-amber-900/20 border-l-4 border-amber-500 p-3 sm:p-4 rounded-r">
+                  <div className="bg-amber-900/20 border-l-4 border-amber-500 p-3 sm:p-4 rounded-r">
                   <p className="text-white/80 text-xs sm:text-sm">
-                    <span className="font-medium">📌 Note :</span> Merci beaucoup pour votre visite.
+                    <span className="font-medium"><FaMapPin className="inline-block mr-1"/>Note :</span> Merci beaucoup pour votre visite.
                   </p>
                 </div>
               </div>
@@ -241,7 +241,7 @@ export default function Contact() {
                     onClick={() => window.open('https://www.google.com/maps/place/Tananarive', '_blank')}
                     className="px-3 sm:px-4 py-1 sm:py-2 bg-amber-600/30 hover:bg-amber-600/40 text-amber-300 rounded-md text-xs sm:text-sm transition border border-amber-500/30"
                   >
-                    🗺️ Voir sur la carte
+                    <FaMapMarkedAlt className="inline-block mr-1"/> Voir sur la carte
                   </button>
                 </div>
               </div>
@@ -249,8 +249,8 @@ export default function Contact() {
           </div>
 
           <div className="mt-12 sm:mt-16 text-center text-white/60 px-2 sm:px-4">
-            <p className="text-sm sm:text-lg mb-1 sm:mb-2">📲 N'hésitez pas à me contacter via l'un de ces canaux</p>
-            <p className="text-xs sm:text-sm">👆 Cliquez sur une carte pour accéder directement</p>
+            <p className="text-sm sm:text-lg mb-1 sm:mb-2"><FaMobileAlt className="inline-block mr-1"/> N'hésitez pas à me contacter via l'un de ces canaux</p>
+            <p className="text-xs sm:text-sm"><FaHandPointUp className="inline-block mr-1"/> Cliquez sur une carte pour accéder directement</p>
           </div>
         </div>
 

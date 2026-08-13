@@ -1,6 +1,7 @@
 import React from 'react';
 import profil from '../img/cv.png';
 import cv from '../cv/SANTATRINIAINA_Feno_Nasandratra_CV.pdf';
+import { FaRocket, FaLaptopCode } from 'react-icons/fa';
 
 export default function HeroSection() {
     const handleDownloadCV = () => {
@@ -114,10 +115,10 @@ export default function HeroSection() {
                             </div>
                             
                             <div className="absolute -top-4 -right-4 h-10 w-10 bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl flex items-center justify-center animate-bounce shadow-2xl">
-                                <span className="text-xl">🚀</span>
+                                <FaRocket className="text-xl" />
                             </div>
                             <div className="absolute -bottom-5 -left-5 h-14 w-14 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl flex items-center justify-center animate-pulse shadow-2xl" style={{ animationDelay: '1s' }}>
-                                <span className="text-2xl">💻</span>
+                                <FaLaptopCode className="text-2xl" />
                             </div>
                         </div>
                     </div>

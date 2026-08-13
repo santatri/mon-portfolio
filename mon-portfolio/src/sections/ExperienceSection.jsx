@@ -1,3 +1,5 @@
+import { FaUniversity, FaBriefcase, FaTools, FaBuilding, FaGlobe } from 'react-icons/fa';
+
 const experienceItems = [
     {
         id: 1,
@@ -9,7 +11,7 @@ const experienceItems = [
         tags: ['React', 'Node.js', 'Express', 'MySQL'],
         type: 'stage',
         color: 'from-cyan-500 to-blue-600',
-        icon: '🏛️',
+        icon: <FaUniversity />,
         link: '',
         responsibilities: [
             'Analyse des besoins métiers',
@@ -29,7 +31,7 @@ const experienceItems = [
         tags: ['React', 'Node.js', 'Express', 'MySQL', 'Tailwind CSS'],
         type: 'stage',
         color: 'from-emerald-400 to-cyan-500',
-        icon: '💼',
+        icon: <FaBriefcase />,
         link: 'https://4kdesigns-mada.com',
         responsibilities: [
             'Analyse des besoins et modélisation de la base de données',
@@ -50,7 +52,7 @@ const experienceItems = [
         tags: ['Angular', 'Symfony', 'Docker', 'Tailwind CSS'],
         type: 'professionnel',
         color: 'from-red-400 to-pink-500',
-        icon: '🔧',
+        icon: <FaTools />,
         link: 'https://ses-med.com',
         responsibilities: [
             'Mises à jour fonctionnelles et correctifs',
@@ -70,7 +72,7 @@ const experienceItems = [
         tags: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Tailwind CSS'],
         type: 'professionnel',
         color: 'from-violet-400 to-purple-600',
-        icon: '🏢',
+        icon: <FaBuilding />,
         link: '',
         responsibilities: [
             'Analyse fonctionnelle et architecture technique',
@@ -91,7 +93,7 @@ const experienceItems = [
         tags: ['React', 'Node.js', 'Express', 'MySQL', 'Tailwind CSS'],
         type: 'personnel',
         color: 'from-orange-400 to-amber-500',
-        icon: '🌐',
+        icon: <FaGlobe />,
         link: '',
         responsibilities: [
             'Gestion des annonces et des comptes utilisateurs',

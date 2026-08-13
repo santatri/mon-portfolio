@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { FaHome, FaUser, FaBriefcase, FaBolt, FaRocket } from 'react-icons/fa';
+import { FiMail } from 'react-icons/fi';
 
 const navLinks = [
   { label: 'Accueil', id: 'accueil' },
@@ -135,12 +137,12 @@ export default function Header() {
                 }`}
             >
               <span className="text-lg opacity-50">
-                {link.id === 'accueil' && '🏠'}
-                {link.id === 'apropos' && '👤'}
-                {link.id === 'experience' && '💼'}
-                {link.id === 'skills' && '⚡'}
-                {link.id === 'projets' && '🚀'}
-                {link.id === 'contact' && '📧'}
+                {link.id === 'accueil' && <FaHome />}
+                {link.id === 'apropos' && <FaUser />}
+                {link.id === 'experience' && <FaBriefcase />}
+                {link.id === 'skills' && <FaBolt />}
+                {link.id === 'projets' && <FaRocket />}
+                {link.id === 'contact' && <FiMail />}
               </span>
               {link.label}
             </button>
