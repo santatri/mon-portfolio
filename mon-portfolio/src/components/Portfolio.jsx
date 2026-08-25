@@ -3,8 +3,9 @@ import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import {
   Github,
+  Linkedin,
   Mail,
-  Phone,
+  MessageCircle,
   MapPin,
   ExternalLink,
   Download,
@@ -670,10 +671,12 @@ export default function Portfolio() {
             </div>
           </a>
           <a
-            href={`tel:${contactInfo.phone1.replace(/\s/g, "")}`}
+            href={contactInfo.whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex items-center gap-3 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-[#2b6cb0]/60 transition-colors"
           >
-            <Phone size={18} className="text-[#4d9fef]" />
+            <MessageCircle size={18} className="text-[#4d9fef]" />
             <div>
               <p className="text-xs text-slate-500">{t.contact.phoneLabel}</p>
               <p className="text-sm text-slate-200">{contactInfo.phone1}</p>
@@ -696,6 +699,18 @@ export default function Portfolio() {
             <div>
               <p className="text-xs text-slate-500">{t.contact.githubLabel}</p>
               <p className="text-sm text-slate-200">{contactInfo.github}</p>
+            </div>
+          </a>
+          <a
+            href={contactInfo.linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-[#2b6cb0]/60 transition-colors"
+          >
+            <Linkedin size={18} className="text-[#4d9fef]" />
+            <div>
+              <p className="text-xs text-slate-500">{t.contact.linkedinLabel}</p>
+              <p className="text-sm text-slate-200">{contactInfo.linkedin}</p>
             </div>
           </a>
         </div>
