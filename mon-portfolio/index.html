@@ -1,41 +1,53 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/monkey.svg" />
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="theme-color" content="#0ea5e9" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Portfolio" />
-    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-    <title>SANTATRINIAINA Feno Nasandratra | Développeur Web Full Stack</title>
-    <meta name="description" content="Portfolio de SANTATRINIAINA Feno Nasandratra, Développeur Web Full Stack spécialisé en React, Node.js et conception d'interfaces modernes." />
-    <meta name="keywords" content="Développeur Web, Full Stack, React, Node.js, Portfolio, Madagascar, Feno Nasandratra" />
-    
-    <!-- Open Graph / Facebook -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SANTATRINIAINA Feno Nasandratra | Développeur Full Stack Junior</title>
+    <meta
+      name="description"
+      content="Portfolio de SANTATRINIAINA Feno Nasandratra, Développeur Full Stack Junior à Antananarivo : React, Angular, Node.js, applications CRM et ERP."
+    />
+    <meta name="author" content="SANTATRINIAINA Feno Nasandratra" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0a0f1a" />
+    <link rel="icon" href="/monkey.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://santatriniaina-portfolio.vercel.app/" />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_MG" />
+    <meta property="og:site_name" content="Portfolio — SANTATRINIAINA Feno Nasandratra" />
+    <meta property="og:title" content="SANTATRINIAINA Feno Nasandratra | Développeur Full Stack Junior" />
+    <meta property="og:description" content="Développeur Full Stack Junior à Antananarivo : applications métier, CRM et ERP avec React, Angular et Node.js." />
     <meta property="og:url" content="https://santatriniaina-portfolio.vercel.app/" />
-    <meta property="og:title" content="SANTATRINIAINA Feno Nasandratra | Développeur Web Full Stack" />
-    <meta property="og:description" content="Découvrez mes projets et compétences en développement web Full Stack." />
-    <meta property="og:image" content="/og-image.png" />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="SANTATRINIAINA Feno Nasandratra | Développeur Web Full Stack" />
-    <meta property="twitter:description" content="Découvrez mes projets et compétences en développement web Full Stack." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="SANTATRINIAINA Feno Nasandratra | Développeur Full Stack Junior" />
+    <meta name="twitter:description" content="Applications métier, CRM et ERP — React, Angular, Node.js." />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "SANTATRINIAINA Feno Nasandratra",
+        "jobTitle": "Développeur Full Stack Junior",
+        "url": "https://santatriniaina-portfolio.vercel.app/",
+        "email": "mailto:santatriniainafeno01@gmail.com",
+        "telephone": "+261383073485",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Antananarivo",
+          "addressCountry": "MG"
+        },
+        "sameAs": ["https://github.com/santatri"],
+        "knowsAbout": ["React", "Angular", "Node.js", "Express", "PostgreSQL", "MySQL"]
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js');
-        });
-      }
-    </script>
   </body>
 </html>

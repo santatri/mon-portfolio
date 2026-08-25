@@ -1,52 +1,11 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@theme {
-  --color-gray-850: #171f2e;
+html {
+  scroll-behavior: smooth;
 }
 
-@supports (-webkit-touch-callout: none) {
-    /* Correction spécifique pour Safari iOS */
-    .min-h-screen {
-      height: -webkit-fill-available;
-    }
-}
-
-@layer base {
-  body {
-    @apply bg-gray-950 text-gray-200 antialiased selection:bg-indigo-500/30 selection:text-indigo-200;
-  }
-}
-
-@layer utilities {
-  .glass-card {
-    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl;
-  }
-  
-  .glass-card-hover {
-    @apply hover:bg-white/10 hover:border-white/20 hover:shadow-indigo-500/10 transition-all duration-500;
-  }
-
-  .text-gradient-indigo {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-violet-400 to-sky-400;
-  }
-
-  .animate-aurora {
-    animation: aurora 20s linear infinite;
-  }
-}
-
-@keyframes aurora {
-  0% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(5%, 5%) scale(1.1); }
-  66% { transform: translate(-5%, 2%) scale(0.9); }
-  100% { transform: translate(0, 0) scale(1); }
-}
-
-@keyframes pulse-slow {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.05); }
-}
-
-.animate-pulse-slow {
-  animation: pulse-slow 8s ease-in-out infinite;
+body {
+  background-color: #0a0f1a;
 }
