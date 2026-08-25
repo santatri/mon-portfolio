@@ -28,7 +28,7 @@ export const translations = {
     },
     about: {
       heading: "Profil",
-      bio: "Étudiant en Master 1 de Génie Logiciel à l’ISPM, orienté développement Full Stack Web. J’interviens sur des applications métier, CRM et ERP, de l’analyse des besoins à la conception technique, la base de données, le frontend et le backend. Mes expériences m’ont aussi permis de prendre en charge le déploiement, la maintenance et les évolutions des applications.",
+      bio: "Étudiant en Master 1 d’Informatique de Gestion, Génie Logiciel et Intelligence Artificielle (IGGLIA) à l’ISPM, orienté développement Full Stack Web. J’interviens sur des applications métier, CRM et ERP, de l’analyse des besoins à la conception technique, la base de données, le frontend et le backend. Mes expériences m’ont aussi permis de prendre en charge le déploiement, la maintenance et les évolutions des applications.",
       pillars: [
         { title: "Qualité", desc: "Projets fiables & maintenables" },
         { title: "Fiabilité", desc: "Applications stables en production" },
@@ -188,7 +188,7 @@ export const translations = {
       french: "Français",
       english: "Anglais",
       educationItems: [
-        { title: "Master 1 — Génie Logiciel", school: "ISPM", period: "2021 - Présent" },
+        { title: "Master 1 — Informatique de Gestion, Génie Logiciel et Intelligence Artificielle (IGGLIA)", school: "ISPM", period: "2021 - Présent" },
       ],
     },
     footer: {
@@ -222,7 +222,7 @@ export const translations = {
     },
     about: {
       heading: "Profile",
-      bio: "Master 1 Software Engineering student at ISPM, focused on Full Stack Web development. I work on business, CRM, and ERP applications, from requirements analysis and technical design to databases, frontend, and backend development. My experience also includes deployment, maintenance, and application enhancements.",
+      bio: "Master 1 student in Management Information Systems, Software Engineering and Artificial Intelligence (IGGLIA) at ISPM, focused on Full Stack Web development. I work on business, CRM, and ERP applications, from requirements analysis and technical design to databases, frontend, and backend development. My experience also includes deployment, maintenance, and application enhancements.",
       pillars: [
         { title: "Quality", desc: "Reliable & maintainable projects" },
         { title: "Reliability", desc: "Stable applications in production" },
@@ -377,7 +377,7 @@ export const translations = {
       french: "French",
       english: "English",
       educationItems: [
-        { title: "Software Engineering", school: "ISPM", period: "2021 - Present" },
+        { title: "Management Information Systems, Software Engineering and Artificial Intelligence (IGGLIA)", school: "ISPM", period: "2021 - Present" },
       ],
     },
     footer: {
