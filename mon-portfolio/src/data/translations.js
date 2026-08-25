@@ -92,7 +92,7 @@ export const translations = {
             "Support technique et accompagnement des utilisateurs",
             "Déploiement de l’application avec Docker",
           ],
-          stack: ["Angular", "Symfony", "Docker", "Tailwind CSS"],
+          stack: ["Angular", "Symfony","MySQL", "Docker", "Tailwind CSS"],
           link: "ses-med.com",
         },
         {
@@ -286,7 +286,7 @@ export const translations = {
             "Technical support and user assistance",
             "Application deployment with Docker",
           ],
-          stack: ["Angular", "Symfony", "Docker", "Tailwind CSS"],
+          stack: ["Angular", "Symfony","MySQL", "Docker", "Tailwind CSS"],
           link: "ses-med.com",
         },
         {
