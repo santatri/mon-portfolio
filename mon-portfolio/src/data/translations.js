@@ -84,7 +84,7 @@ export const translations = {
           company: "S.E.S MED (AST COM WEB)",
           period: "Août 2025 - Présent",
           title: "Développeur Full Stack — Maintenance & Évolutions",
-          desc: "CRM médical international : maintenance et évolution d’une application utilisée pour les opérations métier et la gestion des commandes.",
+          desc: "CRM international : maintenance et évolution d’une application utilisée pour les opérations métier et la gestion des commandes.",
           bullets: [
             "Réalisation de correctifs et de maintenances évolutives",
             "Développement de nouvelles fonctionnalités client",
@@ -108,7 +108,7 @@ export const translations = {
             "Déploiement, maintenance et évolutions de l’application",
           ],
           stack: ["React", "PHP", "MySQL", "Tailwind CSS"],
-          link: "https://app.agence-acw.com/",
+          link: "app.agence-acw.com/",
         },
         {
           company: "Standard de service (MTEFOP — Ministère du Travail)",
@@ -278,7 +278,7 @@ export const translations = {
           company: "S.E.S MED (AST COM WEB)",
           period: "Aug. 2025 - Present",
           title: "Full Stack Developer — Maintenance & Enhancements",
-          desc: "International medical CRM: maintenance and evolution of an application used for business operations and order management.",
+          desc: "International CRM: maintenance and evolution of an application used for business operations and order management.",
           bullets: [
             "Corrective and enhancement maintenance",
             "Development of new client features",
@@ -302,7 +302,7 @@ export const translations = {
             "Deployment, maintenance, and application enhancements",
           ],
           stack: ["React", " PHP ", "MySQL", "Tailwind CSS"],
-          link: "https://app.agence-acw.com",
+          link: "app.agence-acw.com",
         },
         {
           company: "Standard de service (MTEFOP — Ministry of Labor)",
