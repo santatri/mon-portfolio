@@ -1,39 +1,16 @@
-// src/components/Portfolio.jsx
+// src/components/Portfolio.terminal.jsx
+// Design minimaliste "terminal / développeur" : police monospace, fenêtres de terminal,
+// commandes tapées à l'accueil, expériences façon `git log`, compétences façon JSON.
+// Pour l'utiliser : importez ce fichier à la place de Portfolio.jsx (même export par défaut).
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import {
-  Github,
-  Linkedin,
-  Mail,
-  MessageCircle,
-  MapPin,
-  ExternalLink,
-  Download,
-  Menu,
-  X,
-  Code2,
-  Database,
-  Wrench,
-  Terminal,
-  Layers,
-  GraduationCap,
-  ChevronRight,
-  Globe,
-  Images as ImagesIcon,
-  ZoomIn,
-} from "lucide-react";
+import { ExternalLink, Menu, X, ChevronRight, ZoomIn, Sun, Moon } from "lucide-react";
 import { translations, contactInfo } from "../data/translations";
 import CVDocument from "./CVDocument";
-import ProfileBadge from "./ProfileBadge";
-
-// Modèle de badge pour la photo : "pro" | "medal" | "card" | "shield"
-const BADGE_VARIANT = "pro";
+import useCVDownload from "../useCVDownload";
 
 // Photo de profil (accueil + CV)
 import profilImg from "../img/profil.png";
 
-// Captures d'écran des projets réalisés en entreprise — associées
-// aux expériences professionnelles (chaque expérience = un projet livré).
 import cf1 from "../img/cfpm/cf1.jpg";
 import cf2 from "../img/cfpm/cf2.jpg";
 import cf3 from "../img/cfpm/cf3.jpg";
@@ -48,7 +25,6 @@ import ses3 from "../img/sesmed/ses3.jpg";
 import ses4 from "../img/sesmed/ses4.jpg";
 import ses5 from "../img/sesmed/ses5.jpg";
 import ses6 from "../img/sesmed/ses6.jpg";
-// Note: `users.jpg` was removed/renamed; omit it to avoid import error
 
 import kd1 from "../img/4kdesign/4k1.jpg";
 import kd2 from "../img/4kdesign/4k2.jpg";
@@ -66,7 +42,6 @@ import cr4 from "../img/crm/cr4.jpg";
 import cr5 from "../img/crm/cr5.jpg";
 import cr6 from "../img/crm/cr6.jpg";
 
-// Captures d'écran des projets académiques / personnels
 import spHome from "../img/sanpanera/homeSP.jpg";
 import spAnnonce from "../img/sanpanera/annonceSP.jpg";
 import spListe from "../img/sanpanera/listeSP.jpg";
@@ -74,8 +49,6 @@ import spComplet from "../img/sanpanera/complerSP.jpeg";
 import spContact from "../img/sanpanera/contactSP.jpg";
 import spHistorique from "../img/sanpanera/hystoriqueSP.jpeg";
 
-// Index -> galerie d'images, dans le même ordre que experience.items /
-// projects.items dans src/data/translations.js (identique FR/EN).
 const EXPERIENCE_IMAGES = [
   [cr1, cr2, cr3, cr4, cr5, cr6], // GE — CRM Grossiste
   [cf1, cf2, cf3, cf4, cf5, cf6, cf7], // GE_CFPM
@@ -100,86 +73,119 @@ const PROJECT_IMAGES = [
 ];
 
 const LANG_STORAGE_KEY = "sfn_portfolio_lang";
+const THEME_STORAGE_KEY = "sfn_portfolio_theme";
 
-const CATEGORY_ICONS = {
-  Frontend: Code2,
-  Backend: Terminal,
-  "Bases de données": Database,
-  Databases: Database,
-  "Outils & DevOps": Wrench,
-  "Tools & DevOps": Wrench,
-  Langages: Layers,
-  Languages: Layers,
-  Méthodologies: GraduationCap,
-  Methodologies: GraduationCap,
+// Couleurs liées au thème choisi sur le conteneur racine.
+const C = {
+  bg: "var(--c-bg)",
+  panel: "var(--c-panel)",
+  line: "var(--c-line)",
+  text: "var(--c-text)",
+  mute: "var(--c-mute)",
+  green: "var(--c-green)",
+  amber: "var(--c-amber)",
+  cyan: "var(--c-cyan)",
 };
 
-function NavLink({ children, onClick }) {
-  return (
-    <button
-      onClick={onClick}
-      className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200 relative group"
-    >
-      {children}
-      <span className="absolute -bottom-1 left-0 w-0 h-px bg-[#2b6cb0] transition-all duration-300 group-hover:w-full" />
-    </button>
-  );
-}
+const MONO = '"JetBrains Mono","Fira Code","SF Mono",ui-monospace,Menlo,Consolas,monospace';
 
-function SectionHeading({ index, label }) {
+const STYLES = `
+@keyframes tm-type{to{width:calc(var(--n) * 1ch)}}
+@keyframes tm-show{to{opacity:1}}
+@keyframes tm-blink{50%{opacity:0}}
+.tm-cmd{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;width:0;animation:tm-type .5s steps(var(--n)) var(--d) forwards}
+.tm-out{opacity:0;animation:tm-show .01s linear var(--d) forwards}
+.tm-cursor{display:inline-block;width:.6em;height:1.1em;background:${C.green};box-shadow:0 0 10px ${C.green};vertical-align:text-bottom;animation:tm-blink 1s steps(1) infinite}
+.tm-blink{animation:tm-blink 1.2s steps(1) infinite}
+.tm-link{color:${C.green};text-shadow:0 0 10px color-mix(in srgb,${C.green} 45%,transparent);text-decoration:underline;text-underline-offset:4px;text-decoration-color:transparent;transition:text-decoration-color .15s}
+.tm-link:hover{text-decoration-color:${C.green}}
+.tm-btn{border:1px solid ${C.green};color:${C.green};box-shadow:0 0 12px color-mix(in srgb,${C.green} 25%,transparent),inset 0 0 10px color-mix(in srgb,${C.green} 8%,transparent);padding:.5rem .9rem;transition:background .15s,color .15s,box-shadow .15s;display:inline-flex;align-items:center;gap:.5rem}
+.tm-btn:hover{background:${C.green};color:${C.bg};box-shadow:0 0 22px color-mix(in srgb,${C.green} 55%,transparent)}
+.tm-btn-ghost{border:1px solid ${C.line};color:${C.text};padding:.5rem .9rem;transition:border-color .15s,color .15s,box-shadow .15s;display:inline-flex;align-items:center;gap:.5rem}
+.tm-btn-ghost:hover{border-color:${C.cyan};color:${C.cyan};box-shadow:0 0 14px color-mix(in srgb,${C.cyan} 32%,transparent)}
+.portfolio-root h1,.portfolio-root h2{ text-shadow:0 0 18px color-mix(in srgb,var(--c-cyan) 28%,transparent) }
+.portfolio-root .border{transition:border-color .2s,box-shadow .2s}
+.portfolio-root .border:hover{box-shadow:0 0 18px color-mix(in srgb,var(--c-cyan) 12%,transparent)}
+.tm-photo{filter:grayscale(1) contrast(1.05);transition:filter .4s}
+.tm-photo-wrap:hover .tm-photo{filter:none}
+@media (prefers-reduced-motion:reduce){
+  .tm-cmd{width:auto;animation:none}
+  .tm-out{opacity:1;animation:none}
+  .tm-cursor,.tm-blink{animation:none}
+}
+`;
+
+/* Fenêtre de terminal avec barre de titre */
+function Win({ title, children, className = "" }) {
   return (
-    <div className="flex items-center gap-3 mb-10">
-      <span className="font-mono text-xs text-[#4d9fef] tracking-widest">{index}</span>
-      <h2 className="min-w-0 break-words text-xl font-bold tracking-tight text-white sm:text-2xl md:text-3xl">{label}</h2>
-      <span className="h-px flex-1 bg-slate-800" />
+    <div className={`border ${className}`} style={{ borderColor: C.line, background: C.panel }}>
+      <div className="flex items-center gap-3 border-b px-3 py-2 text-xs" style={{ borderColor: C.line, color: C.mute }}>
+        <span className="flex gap-1.5" aria-hidden="true">
+          <i className="block h-2 w-2" style={{ background: "#ff6b6b" }} />
+          <i className="block h-2 w-2" style={{ background: C.amber }} />
+          <i className="block h-2 w-2" style={{ background: C.green }} />
+        </span>
+        <span className="truncate">{title}</span>
+      </div>
+      {children}
     </div>
   );
 }
 
-// Petite galerie de captures d'écran affichée sous une expérience ou un
-// projet. Cliquer sur une vignette l'ouvre en grand via le Lightbox.
+/* Titre de section : la commande + le titre */
+function Section({ id, cmd, title, children }) {
+  return (
+    <section id={id} className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+      <p className="text-xs sm:text-sm" style={{ color: C.mute }}>
+        <span style={{ color: C.green }}>$</span> {cmd}
+      </p>
+      <h2 className="mb-8 mt-2 text-xl font-bold sm:text-2xl" style={{ color: C.text }}>{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function Tag({ children }) {
+  return (
+    <span className="border px-2 py-0.5 text-[11px]" style={{ borderColor: C.line, color: C.cyan }}>
+      {children}
+    </span>
+  );
+}
+
+// Galerie de captures d'écran. Cliquer sur une vignette l'ouvre en grand.
 function ImageGallery({ images, onOpen }) {
   if (!images || images.length === 0) return null;
   const previewImages = images.slice(0, 5);
   const remainingCount = images.length - previewImages.length;
   return (
-    <div className="mt-5 border-t border-slate-800/80 pt-4">
-      <div className="mb-3 flex items-center justify-between gap-3">
-        <div className="min-w-0 flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.1em] text-slate-500 sm:text-[11px] sm:tracking-[0.12em]">
-          <ImagesIcon size={13} />
-          <span>Captures du projet</span>
-        </div>
-        <span className="shrink-0 rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-mono text-slate-400">
-          {images.length} vue{images.length > 1 ? "s" : ""}
-        </span>
-      </div>
+    <div className="mt-5 border-t pt-4" style={{ borderColor: C.line }}>
+      <p className="mb-3 text-[11px]" style={{ color: C.mute }}>
+        <span style={{ color: C.green }}>$</span> ls captures/ <span style={{ color: C.amber }}>({images.length})</span>
+      </p>
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4 sm:grid-rows-2">
         {previewImages.map((src, i) => (
           <button
             key={i}
             type="button"
             onClick={() => onOpen(images, i)}
-            className={`group relative min-h-24 overflow-hidden rounded-lg border border-slate-800 bg-slate-950 text-left transition-all duration-300 hover:z-10 hover:border-[#4d9fef] hover:shadow-[0_0_24px_rgba(43,108,176,0.2)] ${
+            className={`group relative min-h-24 overflow-hidden border text-left transition-colors hover:border-[#3ddc84] ${
               i === 0 ? "col-span-2 row-span-2 min-h-52" : "min-h-24"
             }`}
+            style={{ borderColor: C.line, background: C.bg }}
             aria-label={`Ouvrir la capture ${i + 1} sur ${images.length}`}
           >
             <img
               src={src}
               alt={`Capture d'écran ${i + 1} du projet`}
               loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              className="absolute inset-0 h-full w-full object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100"
             />
-            <span className="absolute inset-0 flex items-center justify-center bg-slate-950/0 transition-colors group-hover:bg-slate-950/35">
-              <ZoomIn size={i === 0 ? 24 : 16} className="text-white opacity-0 transition-opacity group-hover:opacity-100" />
+            <span className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/30">
+              <ZoomIn size={i === 0 ? 22 : 16} className="text-white opacity-0 transition-opacity group-hover:opacity-100" />
             </span>
-            {i === 0 && (
-              <span className="absolute bottom-2 left-2 rounded bg-slate-950/80 px-2 py-1 text-[10px] font-mono text-slate-200 backdrop-blur-sm">
-                Aperçu
-              </span>
-            )}
             {remainingCount > 0 && i === previewImages.length - 1 && (
-              <span className="absolute inset-0 flex items-center justify-center bg-slate-950/65 text-sm font-bold text-white backdrop-blur-[1px]">
+              <span className="absolute inset-0 flex items-center justify-center bg-black/70 text-sm font-bold" style={{ color: C.green }}>
                 +{remainingCount}
               </span>
             )}
@@ -192,7 +198,6 @@ function ImageGallery({ images, onOpen }) {
 
 // Visionneuse plein écran pour parcourir les captures d'un projet donné.
 function Lightbox({ images, index, onClose, onNavigate }) {
-  // Le hook est appelé avant tout return conditionnel (règle des hooks React).
   useEffect(() => {
     if (!images) return undefined;
     const onKey = (e) => {
@@ -206,19 +211,12 @@ function Lightbox({ images, index, onClose, onNavigate }) {
 
   if (!images) return null;
 
+  const navBtn = "absolute p-2 text-slate-300 transition-colors hover:text-[#3ddc84]";
   return (
-    <div
-      className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 sm:p-10"
-      onClick={onClose}
-    >
-      <button
-        onClick={onClose}
-        className="absolute top-5 right-5 text-slate-300 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
-        aria-label="Fermer"
-      >
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 sm:p-10" onClick={onClose}>
+      <button onClick={onClose} className={`${navBtn} right-5 top-5`} aria-label="Fermer">
         <X size={24} />
       </button>
-
       {images.length > 1 && (
         <>
           <button
@@ -226,7 +224,7 @@ function Lightbox({ images, index, onClose, onNavigate }) {
               e.stopPropagation();
               onNavigate(-1);
             }}
-            className="absolute left-3 sm:left-6 text-slate-300 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
+            className={`${navBtn} left-3 sm:left-6`}
             aria-label="Précédent"
           >
             <ChevronRight size={26} className="rotate-180" />
@@ -236,23 +234,22 @@ function Lightbox({ images, index, onClose, onNavigate }) {
               e.stopPropagation();
               onNavigate(1);
             }}
-            className="absolute right-3 sm:right-6 text-slate-300 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
+            className={`${navBtn} right-3 sm:right-6`}
             aria-label="Suivant"
           >
             <ChevronRight size={26} />
           </button>
         </>
       )}
-
       <img
         src={images[index]}
         alt=""
         onClick={(e) => e.stopPropagation()}
-        className="max-w-full max-h-full rounded-lg shadow-2xl object-contain"
+        className="max-h-full max-w-full border object-contain"
+        style={{ borderColor: C.line }}
       />
-
       {images.length > 1 && (
-        <span className="absolute bottom-5 left-1/2 -translate-x-1/2 text-xs font-mono text-slate-400">
+        <span className="absolute bottom-5 left-1/2 -translate-x-1/2 text-xs" style={{ color: C.mute }}>
           {index + 1} / {images.length}
         </span>
       )}
@@ -261,7 +258,10 @@ function Lightbox({ images, index, onClose, onNavigate }) {
 }
 
 export default function Portfolio() {
-  // Langue persistée : le contenu est mis à jour sans rechargement complet.
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "dark";
+    return window.localStorage.getItem(THEME_STORAGE_KEY) || "dark";
+  });
   const [lang, setLang] = useState(() => {
     if (typeof window === "undefined") return "fr";
     return window.localStorage.getItem(LANG_STORAGE_KEY) || "fr";
@@ -270,11 +270,10 @@ export default function Portfolio() {
   const [lightbox, setLightbox] = useState(null); // { images, index }
   const [isLanguageChanging, setIsLanguageChanging] = useState(false);
   const t = translations[lang];
+
+  const isOngoing = (item) => /présent|present/i.test(item.period);
   const orderedExperienceItems = useMemo(
-    () => [...t.experience.items].sort((a, b) => {
-      const ongoing = (item) => /présent|present/i.test(item.period) ? 1 : 0;
-      return ongoing(b) - ongoing(a);
-    }),
+    () => [...t.experience.items].sort((a, b) => (isOngoing(b) ? 1 : 0) - (isOngoing(a) ? 1 : 0)),
     [t]
   );
 
@@ -299,9 +298,7 @@ export default function Portfolio() {
     return () => window.clearTimeout(timer);
   }, [isLanguageChanging]);
 
-  const openLightbox = useCallback((images, index) => {
-    setLightbox({ images, index });
-  }, []);
+  const openLightbox = useCallback((images, index) => setLightbox({ images, index }), []);
   const closeLightbox = useCallback(() => setLightbox(null), []);
   const navigateLightbox = useCallback((delta) => {
     setLightbox((prev) => {
@@ -317,10 +314,22 @@ export default function Portfolio() {
     try {
       window.localStorage.setItem(LANG_STORAGE_KEY, next);
     } catch (e) {
-      // localStorage indisponible (mode privé, etc.) — on continue quand même
+      // localStorage indisponible (mode privé, etc.)
     }
     setLang(next);
   }, [lang]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((current) => {
+      const next = current === "dark" ? "light" : "dark";
+      try {
+        window.localStorage.setItem(THEME_STORAGE_KEY, next);
+      } catch (e) {
+        // Le thème reste actif pour cette session si localStorage est indisponible.
+      }
+      return next;
+    });
+  }, []);
 
   const scrollTo = useCallback((id) => {
     setMenuOpen(false);
@@ -328,8 +337,8 @@ export default function Portfolio() {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
-  // Memoized so the PDF isn't regenerated on every unrelated re-render.
   const cvDoc = useMemo(() => <CVDocument lang={lang} photoUrl={profilImg} />, [lang]);
+  const { download: downloadCV, isGenerating: isGeneratingCV } = useCVDownload(cvDoc, t.meta.cvFileName);
 
   const navItems = [
     { id: "about", label: t.nav.about },
@@ -339,395 +348,341 @@ export default function Portfolio() {
     { id: "contact", label: t.nav.contact },
   ];
 
+  const contactRows = [
+    { k: "email", v: contactInfo.email, href: `mailto:${contactInfo.email}`, label: t.contact.emailLabel },
+    { k: "tel", v: contactInfo.phone1, href: contactInfo.whatsappUrl, ext: true, label: t.contact.phoneLabel },
+    { k: "lieu", v: contactInfo.location, label: t.contact.locationLabel },
+    { k: "github", v: contactInfo.github, href: contactInfo.githubUrl, ext: true, label: t.contact.githubLabel },
+    { k: "linkedin", v: contactInfo.linkedin, href: contactInfo.linkedinUrl, ext: true, label: t.contact.linkedinLabel },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#151516] text-slate-200 font-sans selection:bg-[#10151a] selection:text-white">
+    <div
+      className="portfolio-root min-h-screen text-sm leading-relaxed selection:bg-[#3ddc84] selection:text-black"
+      style={{
+        "--c-bg": theme === "dark" ? "#080519" : "#f5f3ff",
+        "--c-panel": theme === "dark" ? "#100b2a" : "#ffffff",
+        "--c-line": theme === "dark" ? "#38246b" : "#b9a7ff",
+        "--c-text": theme === "dark" ? "#f1eaff" : "#211044",
+        "--c-mute": theme === "dark" ? "#b4a7d5" : "#625080",
+        "--c-green": theme === "dark" ? "#b6ff00" : "#6c00ff",
+        "--c-amber": theme === "dark" ? "#ffb000" : "#e04400",
+        "--c-cyan": theme === "dark" ? "#00e5ff" : "#0077ff",
+        background: C.bg,
+        color: C.text,
+        fontFamily: MONO,
+      }}
+    >
+      <style>{STYLES}</style>
+
       {isLanguageChanging && (
         <div
-          className="fixed inset-0 z-[200] flex flex-col items-center justify-center gap-4 bg-[#151516]/95 text-white backdrop-blur-sm"
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-[#0a0d0a]/95"
           role="status"
           aria-live="polite"
+          style={{ color: C.green }}
         >
-          <span className="h-10 w-10 animate-spin rounded-full border-2 border-slate-600 border-t-[#4d9fef]" />
-          <span className="text-sm font-mono text-slate-300">
-            {lang === "fr" ? "Changement de langue..." : "Switching language..."}
-          </span>
+          {lang === "fr" ? "chargement de la langue..." : "loading language..."}
+          <span className="tm-cursor ml-1" />
         </div>
       )}
-      {/* Background grid texture */}
-      <div
-        className="fixed inset-0 pointer-events-none opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
 
       {/* NAVBAR */}
-      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0a0f1a]/80 border-b border-slate-800/80">
-        <nav className="max-w-6xl mx-auto h-16 px-4 sm:px-6 flex items-center justify-between">
-          <button
-            onClick={() => scrollTo("home")}
-            className="font-mono text-sm font-bold text-white tracking-tight"
-          >
-            SFN<span className="text-[#4d9fef]">.</span>
+      <header className="sticky top-0 z-50 border-b backdrop-blur" style={{ borderColor: C.line, background: theme === "dark" ? "rgba(10,13,10,.88)" : "rgba(245,247,245,.9)" }}>
+        <nav className="mx-auto flex h-14 max-w-5xl items-center justify-between px-4 sm:px-6">
+          <button onClick={() => scrollTo("home")} className="text-xs sm:text-sm" style={{ color: C.green }}>
+            sfn@portfolio<span style={{ color: C.mute }}>:~$</span>
           </button>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden items-center gap-6 md:flex">
             {navItems.map((item) => (
-              <NavLink key={item.id} onClick={() => scrollTo(item.id)}>
-                {item.label}
-              </NavLink>
+              <button
+                key={item.id}
+                onClick={() => scrollTo(item.id)}
+                className="text-xs transition-colors hover:text-[#3ddc84]"
+                style={{ color: C.mute }}
+              >
+                ./{item.label.toLowerCase()}
+              </button>
             ))}
           </div>
 
-          <div className="hidden md:flex items-center gap-3">
-            <button
-              onClick={toggleLang}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-slate-700 text-xs font-mono text-slate-300 hover:border-[#2b6cb0] hover:text-white transition-colors"
-              aria-label="Toggle language"
-              disabled={isLanguageChanging}
-            >
-              <Globe size={13} />
-              {lang === "fr" ? "FR / EN" : "EN / FR"}
+          <div className="hidden items-center gap-3 text-xs md:flex">
+            <button onClick={toggleTheme} className="tm-btn-ghost" aria-label={theme === "dark" ? "Activer le mode clair" : "Activer le mode sombre"} title={theme === "dark" ? "Mode clair" : "Mode sombre"}>
+              {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+              {theme === "dark" ? "Clair" : "Sombre"}
             </button>
-            <PDFDownloadLink
-              document={cvDoc}
-              fileName={t.meta.cvFileName}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-[#2b6cb0] hover:bg-[#3a7fcf] text-white text-xs font-semibold transition-colors"
-            >
-              {({ loading }) => (
-                <>
-                  <Download size={13} />
-                  {loading ? t.nav.generating : t.nav.downloadCV}
-                </>
-              )}
-            </PDFDownloadLink>
+            <button onClick={toggleLang} disabled={isLanguageChanging} className="tm-btn-ghost" aria-label="Toggle language">
+              [{lang === "fr" ? "FR|en" : "fr|EN"}]
+            </button>
+            <button type="button" onClick={downloadCV} disabled={isGeneratingCV} className="tm-btn disabled:opacity-60">
+              {isGeneratingCV ? t.nav.generating : t.nav.downloadCV}
+            </button>
           </div>
 
-          <button
-            className="md:hidden text-slate-200"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Menu"
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          <button className="md:hidden" style={{ color: C.text }} onClick={() => setMenuOpen((v) => !v)} aria-label="Menu">
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </nav>
 
         {menuOpen && (
-          <div className="md:hidden border-t border-slate-800 bg-[#0a0f1a] px-4 py-4 flex flex-col gap-4 sm:px-6">
+          <div className="flex flex-col gap-4 border-t px-4 py-4 sm:px-6 md:hidden" style={{ borderColor: C.line, background: C.bg }}>
             {navItems.map((item) => (
-              <NavLink key={item.id} onClick={() => scrollTo(item.id)}>
-                {item.label}
-              </NavLink>
-            ))}
-            <div className="flex items-center gap-3 pt-2">
-              <button
-                onClick={toggleLang}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-slate-700 text-xs font-mono text-slate-300"
-                disabled={isLanguageChanging}
-              >
-                <Globe size={13} />
-                {lang === "fr" ? "FR / EN" : "EN / FR"}
+              <button key={item.id} onClick={() => scrollTo(item.id)} className="text-left text-xs" style={{ color: C.text }}>
+                ./{item.label.toLowerCase()}
               </button>
-              <PDFDownloadLink
-                document={cvDoc}
-                fileName={t.meta.cvFileName}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-md bg-[#2b6cb0] text-white text-xs font-semibold"
-              >
-                {({ loading }) => (loading ? t.nav.generating : t.nav.downloadCV)}
-              </PDFDownloadLink>
+            ))}
+            <div className="flex flex-wrap items-center gap-3 pt-2 text-xs">
+              <button onClick={toggleTheme} className="tm-btn-ghost" aria-label={theme === "dark" ? "Activer le mode clair" : "Activer le mode sombre"}>
+                {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+                {theme === "dark" ? "Clair" : "Sombre"}
+              </button>
+              <button onClick={toggleLang} disabled={isLanguageChanging} className="tm-btn-ghost">
+                [{lang === "fr" ? "FR|en" : "fr|EN"}]
+              </button>
+              <button type="button" onClick={downloadCV} disabled={isGeneratingCV} className="tm-btn disabled:opacity-60">
+                {isGeneratingCV ? t.nav.generating : t.nav.downloadCV}
+              </button>
             </div>
           </div>
         )}
       </header>
 
       {/* HERO */}
-      <section
-        id="home"
-        className="relative max-w-6xl mx-auto px-4 pt-16 pb-20 sm:px-6 sm:pt-24 sm:pb-28 md:pt-36 md:pb-40"
-      >
-        <div className="flex flex-col-reverse md:flex-row md:items-center gap-10 md:gap-16">
-          <div className="flex-1">
-            <div className="flex items-center gap-2 text-xs font-mono text-[#4d9fef] mb-6">
-              <span className="w-2 h-2 rounded-full bg-[#4d9fef] animate-pulse" />
-              {t.hero.location}
-            </div>
-            <h1 className="max-w-3xl break-words text-3xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-4xl md:text-6xl">
-              {t.hero.name}
-            </h1>
-            <p className="mt-5 break-words text-base font-medium text-[#4d9fef] sm:text-lg md:text-xl max-w-2xl">
-              {t.hero.title}
-            </p>
-            <p className="mt-5 text-base text-slate-400 max-w-xl leading-relaxed">
-              {t.hero.tagline}
-            </p>
+      <section id="home" className="mx-auto max-w-5xl px-4 pb-14 pt-12 sm:px-6 sm:pb-20 sm:pt-20">
+        <div className="grid gap-6 md:grid-cols-[1.5fr_1fr] md:items-start">
+          <Win title="sfn@portfolio: ~">
+            <div className="space-y-5 p-4 sm:p-6">
+              <div>
+                <p>
+                  <span style={{ color: C.green }}>$</span>{" "}
+                  <span className="tm-cmd" style={{ "--n": 6, "--d": ".1s" }}>whoami</span>
+                </p>
+                <h1 className="tm-out mt-2 break-words text-2xl font-bold leading-tight sm:text-3xl md:text-4xl" style={{ "--d": ".7s", color: C.text }}>
+                  {t.hero.name}
+                </h1>
+              </div>
 
-            <div className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-              <button
-                onClick={() => scrollTo("projects")}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#2b6cb0] px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#3a7fcf] sm:w-auto"
-              >
-                {t.hero.ctaPrimary}
-                <ChevronRight size={16} />
-              </button>
-              <PDFDownloadLink
-                document={cvDoc}
-                fileName={t.meta.cvFileName}
-                className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-700 px-5 py-3 text-sm font-semibold text-slate-200 transition-colors hover:border-[#2b6cb0] sm:w-auto"
-              >
-                {({ loading }) => (
-                  <>
-                    <Download size={16} />
-                    {loading ? t.nav.generating : t.hero.ctaSecondary}
-                  </>
-                )}
-              </PDFDownloadLink>
-            </div>
-          </div>
+              <div>
+                <p>
+                  <span style={{ color: C.green }}>$</span>{" "}
+                  <span className="tm-cmd" style={{ "--n": 12, "--d": ".8s" }}>cat role.txt</span>
+                </p>
+                <p className="tm-out mt-1" style={{ "--d": "1.4s", color: C.amber }}>{t.hero.title}</p>
+              </div>
 
-          {/* Photo de profil : badge (voir ProfileBadge.jsx) */}
-          <div className="flex shrink-0 justify-center md:justify-end">
-            <ProfileBadge
-              variant={BADGE_VARIANT}
-              src={profilImg}
-              name={t.hero.name}
-              lang={lang}
-            />
-          </div>
+              <div>
+                <p>
+                  <span style={{ color: C.green }}>$</span>{" "}
+                  <span className="tm-cmd" style={{ "--n": 14, "--d": "1.5s" }}>echo $LOCATION</span>
+                </p>
+                <p className="tm-out mt-1" style={{ "--d": "2.1s" }}>{t.hero.location}</p>
+              </div>
+
+              <div>
+                <p>
+                  <span style={{ color: C.green }}>$</span>{" "}
+                  <span className="tm-cmd" style={{ "--n": 16, "--d": "2.2s" }}>cat tagline.txt</span>
+                </p>
+                <p className="tm-out mt-1 max-w-xl" style={{ "--d": "2.8s", color: C.mute }}>{t.hero.tagline}</p>
+              </div>
+
+              <div>
+                <p>
+                  <span style={{ color: C.green }}>$</span>{" "}
+                  <span className="tm-cmd" style={{ "--n": 13, "--d": "2.9s" }}>./actions.sh</span>
+                  <span className="tm-cursor ml-1" />
+                </p>
+                <div className="tm-out mt-3 flex flex-col gap-3 sm:flex-row sm:flex-wrap" style={{ "--d": "3.5s" }}>
+                  <button onClick={() => scrollTo("projects")} className="tm-btn justify-center">
+                    {t.hero.ctaPrimary}
+                  </button>
+                  <button type="button" onClick={downloadCV} disabled={isGeneratingCV} className="tm-btn-ghost justify-center disabled:opacity-60">
+                    {isGeneratingCV ? t.nav.generating : t.hero.ctaSecondary}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </Win>
+
+          {/* Photo de profil */}
+          <Win title="profil.png" className="mx-auto w-full max-w-xs md:max-w-none">
+            <div className="tm-photo-wrap p-3">
+              <img
+                src={profilImg}
+                alt={t.hero.name}
+                className="tm-photo aspect-[4/5] w-full object-cover object-top"
+              />
+              <p className="mt-3 text-xs" style={{ color: C.mute }}>
+                role: <span style={{ color: C.cyan }}>"Full Stack Developer"</span>
+              </p>
+            </div>
+          </Win>
         </div>
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="max-w-6xl mx-auto px-4 py-14 border-t border-slate-800/70 sm:px-6 sm:py-20">
-        <SectionHeading index="01" label={t.about.heading} />
-        <div className="grid md:grid-cols-5 gap-12">
-          <p className="md:col-span-3 text-slate-300 leading-relaxed text-base">
-            {t.about.bio}
-          </p>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:col-span-2">
+      <Section id="about" cmd="cat about.md" title={t.about.heading}>
+        <div className="grid gap-8 md:grid-cols-5">
+          <p className="md:col-span-3" style={{ color: C.text }}>{t.about.bio}</p>
+          <div className="space-y-4 border-l pl-4 md:col-span-2" style={{ borderColor: C.line }}>
             {t.about.pillars.map((pillar, i) => (
-              <div
-                key={i}
-                className="p-4 rounded-lg bg-slate-900/60 border border-slate-800 hover:border-[#2b6cb0]/60 transition-colors"
-              >
-                <p className="text-sm font-bold text-white mb-1">{pillar.title}</p>
-                <p className="text-xs text-slate-400 leading-snug">{pillar.desc}</p>
+              <div key={i}>
+                <p style={{ color: C.green }}>// {pillar.title}</p>
+                <p className="text-xs" style={{ color: C.mute }}>{pillar.desc}</p>
               </div>
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
       {/* SKILLS */}
-      <section id="skills" className="max-w-6xl mx-auto px-4 py-14 border-t border-slate-800/70 sm:px-6 sm:py-20">
-        <SectionHeading index="02" label={t.skills.heading} />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {t.skills.categories.map((cat, i) => {
-            const Icon = CATEGORY_ICONS[cat.title] || Code2;
-            return (
-              <div
-                key={i}
-                className="p-5 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-[#2b6cb0]/60 hover:bg-slate-900 transition-all duration-200"
-              >
-                <div className="flex items-center gap-2.5 mb-4">
-                  <div className="p-1.5 rounded-md bg-[#2b6cb0]/10 text-[#4d9fef]">
-                    <Icon size={16} />
-                  </div>
-                  <h3 className="text-sm font-bold text-white">{cat.title}</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
+      <Section id="skills" cmd="cat skills.json" title={t.skills.heading}>
+        <Win title="skills.json">
+          <div className="space-y-4 overflow-x-auto p-4 sm:p-6">
+            <p style={{ color: C.mute }}>{"{"}</p>
+            {t.skills.categories.map((cat, i) => (
+              <div key={i} className="pl-4">
+                <p>
+                  <span style={{ color: C.green }}>"{cat.title}"</span>
+                  <span style={{ color: C.mute }}>: [</span>
+                </p>
+                <div className="flex flex-wrap gap-x-2 gap-y-1 pl-4">
                   {cat.items.map((item, ii) => (
-                    <span
-                      key={ii}
-                      className="text-xs font-mono px-2.5 py-1 rounded-md bg-slate-800/80 text-slate-300"
-                    >
-                      {item}
+                    <span key={ii} style={{ color: C.cyan }}>
+                      "{item}"<span style={{ color: C.mute }}>,</span>
                     </span>
                   ))}
                 </div>
+                <p style={{ color: C.mute }}>],</p>
               </div>
+            ))}
+            <p style={{ color: C.mute }}>{"}"}</p>
+          </div>
+        </Win>
+      </Section>
+
+      {/* EXPERIENCE */}
+      <Section id="experience" cmd="git log --stat" title={t.experience.heading}>
+        <div className="relative ml-1 border-l border-dashed pl-6 sm:pl-8" style={{ borderColor: C.line }}>
+          {orderedExperienceItems.map((exp, i) => {
+            const live = isOngoing(exp);
+            return (
+              <article key={i} className="relative pb-12 last:pb-0">
+                <span
+                  className={`absolute -left-[31px] top-0 text-base leading-none sm:-left-[39px] ${live ? "tm-blink" : ""}`}
+                  style={{ color: live ? C.amber : C.mute, background: C.bg }}
+                  aria-hidden="true"
+                >
+                  ●
+                </span>
+                <p className="text-xs" style={{ color: live ? C.amber : C.mute }}>{exp.period}</p>
+                <p className="mt-1 text-xs" style={{ color: C.green }}>{exp.company}</p>
+                <div className="mt-1 flex items-center gap-2">
+                  <h3 className="break-words text-base font-bold" style={{ color: C.text }}>{exp.title}</h3>
+                  {exp.link && (
+                    <a
+                      href={`https://${exp.link}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 transition-colors hover:text-[#3ddc84]"
+                      style={{ color: C.mute }}
+                      aria-label={`Visiter le site de ${exp.company}`}
+                    >
+                      <ExternalLink size={14} />
+                    </a>
+                  )}
+                </div>
+                <p className="mt-2 max-w-3xl" style={{ color: C.mute }}>{exp.desc}</p>
+
+                <ul className="mt-3 space-y-1">
+                  {exp.bullets.map((b, bi) => (
+                    <li key={bi} className="flex gap-2">
+                      <span style={{ color: C.green }}>+</span>
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {exp.stack.map((s, si) => (
+                    <Tag key={si}>{s}</Tag>
+                  ))}
+                </div>
+
+                <ImageGallery images={getExperienceImages(exp.company)} onOpen={openLightbox} />
+              </article>
             );
           })}
         </div>
-      </section>
-
-      {/* EXPERIENCE */}
-      <section id="experience" className="max-w-6xl mx-auto px-4 py-14 border-t border-slate-800/70 sm:px-6 sm:py-20">
-        <SectionHeading index="03" label={t.experience.heading} />
-        <div className="relative ml-2 border-l border-slate-800 pl-6 sm:ml-5 sm:pl-10">
-          {orderedExperienceItems.map((exp, i) => (
-            <div key={i} className="group relative pb-10 last:pb-0">
-              <span className="absolute -left-[35px] top-1 flex h-6 w-6 items-center justify-center rounded-full border-4 border-[#151516] bg-[#2b6cb0] text-[9px] font-bold text-white shadow-[0_0_0_1px_rgba(77,159,239,0.35)] sm:-left-[52px]">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <article className="overflow-hidden rounded-xl border border-slate-800 bg-slate-900/30 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:border-[#2b6cb0]/60 group-hover:bg-slate-900/60">
-                <div className="flex flex-col gap-3 border-b border-slate-800/80 bg-slate-950/30 px-4 py-4 sm:flex-row sm:items-start sm:justify-between sm:gap-4 sm:px-5">
-                  <div className="min-w-0">
-                    <p className="mb-1 text-[11px] font-mono font-medium uppercase tracking-[0.16em] text-[#4d9fef]">
-                      {exp.company}
-                    </p>
-                    <div className="flex items-center gap-2">
-                      <h3 className="min-w-0 break-words text-base font-bold leading-snug text-white">{exp.title}</h3>
-                      {exp.link && (
-                        <a
-                          href={`https://${exp.link}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="shrink-0 text-slate-500 transition-colors hover:text-[#4d9fef]"
-                          aria-label={`Visiter le site de ${exp.company}`}
-                        >
-                          <ExternalLink size={14} />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                  <span className="w-fit shrink-0 rounded-full border border-[#2b6cb0]/30 bg-[#2b6cb0]/10 px-2.5 py-1 text-[11px] font-mono text-[#8fc5ff]">
-                    {exp.period}
-                  </span>
-                </div>
-
-                <div className="px-4 py-4 sm:px-5">
-                  <p className="text-sm leading-relaxed text-slate-400">{exp.desc}</p>
-
-                  <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-                    {exp.bullets.map((b, bi) => (
-                      <li key={bi} className="flex items-start gap-2 text-sm leading-relaxed text-slate-300">
-                        <ChevronRight size={14} className="mt-0.5 shrink-0 text-[#4d9fef]" />
-                        {b}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="mt-5 flex flex-wrap gap-2 border-t border-slate-800/80 pt-4">
-                    {exp.stack.map((s, si) => (
-                      <span
-                        key={si}
-                        className="rounded-md border border-slate-700 bg-slate-800/70 px-2 py-1 text-[11px] font-mono text-slate-300"
-                      >
-                        {s}
-                      </span>
-                    ))}
-                  </div>
-
-                  <ImageGallery images={getExperienceImages(exp.company)} onOpen={openLightbox} />
-                </div>
-              </article>
-            </div>
-          ))}
-        </div>
-      </section>
+      </Section>
 
       {/* PROJECTS */}
-      <section id="projects" className="max-w-6xl mx-auto px-4 py-14 border-t border-slate-800/70 sm:px-6 sm:py-20">
-        <SectionHeading index="04" label={t.projects.heading} />
-        <div className="grid sm:grid-cols-2 gap-5">
+      <Section id="projects" cmd="ls -la projects/" title={t.projects.heading}>
+        <div className="grid gap-5 sm:grid-cols-2">
           {t.projects.items.map((p, i) => (
-            <div
-              key={i}
-              className="p-5 rounded-xl bg-slate-900/50 border border-slate-800 hover:border-[#2b6cb0]/60 hover:-translate-y-0.5 transition-all duration-200"
-            >
-              <div className="mb-1.5 flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
-                <h3 className="break-words text-base font-bold text-white">{p.name}</h3>
-                <span className="shrink-0 text-xs font-mono text-slate-500">{p.period}</span>
+            <Win key={i} title={`projects/${p.name}`} className="h-full">
+              <div className="p-4">
+                <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+                  <h3 className="break-words text-base font-bold" style={{ color: C.text }}>{p.name}</h3>
+                  <span className="shrink-0 text-xs" style={{ color: C.amber }}>{p.period}</span>
+                </div>
+                <p className="mb-3" style={{ color: C.mute }}>{p.desc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {p.stack.map((s, si) => (
+                    <Tag key={si}>{s}</Tag>
+                  ))}
+                </div>
+                <ImageGallery images={PROJECT_IMAGES[i]} onOpen={openLightbox} />
               </div>
-              <p className="text-sm text-slate-400 leading-relaxed mb-3">{p.desc}</p>
-              <div className="flex flex-wrap gap-2">
-                {p.stack.map((s, si) => (
-                  <span
-                    key={si}
-                    className="text-[11px] font-mono px-2 py-0.5 rounded border border-slate-700 text-slate-400"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
+            </Win>
+          ))}
+        </div>
+      </Section>
 
-              <ImageGallery images={PROJECT_IMAGES[i]} onOpen={openLightbox} />
+      {/* CONTACT */}
+      <Section id="contact" cmd="./contact.sh" title={t.contact.heading}>
+        <p className="mb-6 max-w-lg" style={{ color: C.mute }}>{t.contact.subheading}</p>
+        <div className="space-y-2">
+          {contactRows.map((r, i) => (
+            <div key={i} className="flex flex-col gap-0.5 sm:flex-row sm:gap-4">
+              <span className="w-24 shrink-0" style={{ color: C.mute }}>
+                <span style={{ color: C.green }}>&gt;</span> {r.k}
+              </span>
+              {r.href ? (
+                <a
+                  href={r.href}
+                  {...(r.ext ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  className="tm-link break-all"
+                >
+                  {r.v}
+                </a>
+              ) : (
+                <span className="break-all">{r.v}</span>
+              )}
             </div>
           ))}
         </div>
-      </section>
-
-      {/* CONTACT */}
-      <section id="contact" className="max-w-6xl mx-auto px-4 py-14 border-t border-slate-800/70 sm:px-6 sm:py-20">
-        <SectionHeading index="05" label={t.contact.heading} />
-        <p className="text-slate-400 mb-8 max-w-lg">{t.contact.subheading}</p>
-        <div className="grid sm:grid-cols-2 gap-4 max-w-2xl">
-          <a
-            href={`mailto:${contactInfo.email}`}
-            className="flex items-center gap-3 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-[#2b6cb0]/60 transition-colors"
-          >
-            <Mail size={18} className="text-[#4d9fef]" />
-            <div>
-              <p className="text-xs text-slate-500">{t.contact.emailLabel}</p>
-              <p className="break-all text-sm text-slate-200">{contactInfo.email}</p>
-            </div>
-          </a>
-          <a
-            href={contactInfo.whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-[#2b6cb0]/60 transition-colors"
-          >
-            <MessageCircle size={18} className="text-[#4d9fef]" />
-            <div>
-              <p className="text-xs text-slate-500">{t.contact.phoneLabel}</p>
-              <p className="text-sm text-slate-200">{contactInfo.phone1}</p>
-            </div>
-          </a>
-          <div className="flex items-center gap-3 p-4 rounded-lg bg-slate-900/50 border border-slate-800">
-            <MapPin size={18} className="text-[#4d9fef]" />
-            <div>
-              <p className="text-xs text-slate-500">{t.contact.locationLabel}</p>
-              <p className="text-sm text-slate-200">{contactInfo.location}</p>
-            </div>
-          </div>
-          <a
-            href={contactInfo.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-[#2b6cb0]/60 transition-colors"
-          >
-            <Github size={18} className="text-[#4d9fef]" />
-            <div>
-              <p className="text-xs text-slate-500">{t.contact.githubLabel}</p>
-              <p className="text-sm text-slate-200">{contactInfo.github}</p>
-            </div>
-          </a>
-          <a
-            href={contactInfo.linkedinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-3 p-4 rounded-lg bg-slate-900/50 border border-slate-800 hover:border-[#2b6cb0]/60 transition-colors"
-          >
-            <Linkedin size={18} className="text-[#4d9fef]" />
-            <div>
-              <p className="text-xs text-slate-500">{t.contact.linkedinLabel}</p>
-              <p className="text-sm text-slate-200">{contactInfo.linkedin}</p>
-            </div>
-          </a>
-        </div>
-      </section>
+      </Section>
 
       {/* FOOTER */}
-      <footer className="border-t border-slate-800/70">
-        <div className="max-w-6xl mx-auto px-4 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:px-6 sm:text-left text-xs text-slate-500">
+      <footer className="border-t" style={{ borderColor: C.line }}>
+        <div className="mx-auto max-w-5xl px-4 py-8 text-xs sm:px-6" style={{ color: C.mute }}>
           <p>
-            © {new Date().getFullYear()} {t.hero.name} — {t.footer.rights}
+            <span style={{ color: C.green }}>$</span> exit
+            <span className="tm-cursor ml-1" />
           </p>
-          <p>{t.footer.builtWith}</p>
+          <div className="mt-4 flex flex-col justify-between gap-2 sm:flex-row">
+            <p>
+              © {new Date().getFullYear()} {t.hero.name} — {t.footer.rights}
+            </p>
+            <p>{t.footer.builtWith}</p>
+          </div>
         </div>
       </footer>
 
-      {/* LIGHTBOX — visionneuse plein écran des captures de projets */}
       {lightbox && (
-        <Lightbox
-          images={lightbox.images}
-          index={lightbox.index}
-          onClose={closeLightbox}
-          onNavigate={navigateLightbox}
-        />
+        <Lightbox images={lightbox.images} index={lightbox.index} onClose={closeLightbox} onNavigate={navigateLightbox} />
       )}
     </div>
   );
