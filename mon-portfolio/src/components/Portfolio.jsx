@@ -103,6 +103,7 @@ const STYLES = `
 .tm-btn:hover{background:${C.green};color:${C.bg};box-shadow:0 0 22px color-mix(in srgb,${C.green} 55%,transparent)}
 .tm-btn-ghost{border:1px solid ${C.line};color:${C.text};padding:.5rem .9rem;transition:border-color .15s,color .15s,box-shadow .15s;display:inline-flex;align-items:center;gap:.5rem}
 .tm-btn-ghost:hover{border-color:${C.cyan};color:${C.cyan};box-shadow:0 0 14px color-mix(in srgb,${C.cyan} 32%,transparent)}
+.portfolio-root .tm-btn,.portfolio-root .tm-btn-ghost{max-width:100%;white-space:normal;overflow-wrap:anywhere}
 .portfolio-root h1,.portfolio-root h2{ text-shadow:0 0 18px color-mix(in srgb,var(--c-cyan) 28%,transparent) }
 .portfolio-root .border{transition:border-color .2s,box-shadow .2s}
 .portfolio-root .border:hover{box-shadow:0 0 18px color-mix(in srgb,var(--c-cyan) 12%,transparent)}
@@ -358,7 +359,7 @@ export default function Portfolio() {
 
   return (
     <div
-      className="portfolio-root min-h-screen text-sm leading-relaxed selection:bg-[#3ddc84] selection:text-black"
+      className="portfolio-root min-h-screen w-full overflow-x-clip text-sm leading-relaxed selection:bg-[#3ddc84] selection:text-black"
       style={{
         "--c-bg": theme === "dark" ? "#080519" : "#f5f3ff",
         "--c-panel": theme === "dark" ? "#100b2a" : "#ffffff",
@@ -394,7 +395,7 @@ export default function Portfolio() {
             sfn@portfolio<span style={{ color: C.mute }}>:~$</span>
           </button>
 
-          <div className="hidden items-center gap-6 md:flex">
+          <div className="hidden items-center gap-6 lg:flex">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -407,7 +408,7 @@ export default function Portfolio() {
             ))}
           </div>
 
-          <div className="hidden items-center gap-3 text-xs md:flex">
+          <div className="hidden items-center gap-3 text-xs lg:flex">
             <button onClick={toggleTheme} className="tm-btn-ghost" aria-label={theme === "dark" ? "Activer le mode clair" : "Activer le mode sombre"} title={theme === "dark" ? "Mode clair" : "Mode sombre"}>
               {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
               {theme === "dark" ? "Clair" : "Sombre"}
@@ -420,13 +421,13 @@ export default function Portfolio() {
             </button>
           </div>
 
-          <button className="md:hidden" style={{ color: C.text }} onClick={() => setMenuOpen((v) => !v)} aria-label="Menu">
+          <button className="lg:hidden" style={{ color: C.text }} onClick={() => setMenuOpen((v) => !v)} aria-label="Menu">
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </nav>
 
         {menuOpen && (
-          <div className="flex flex-col gap-4 border-t px-4 py-4 sm:px-6 md:hidden" style={{ borderColor: C.line, background: C.bg }}>
+          <div className="flex flex-col gap-4 border-t px-4 py-4 sm:px-6 lg:hidden" style={{ borderColor: C.line, background: C.bg }}>
             {navItems.map((item) => (
               <button key={item.id} onClick={() => scrollTo(item.id)} className="text-left text-xs" style={{ color: C.text }}>
                 ./{item.label.toLowerCase()}
@@ -539,7 +540,7 @@ export default function Portfolio() {
       {/* SKILLS */}
       <Section id="skills" cmd="cat skills.json" title={t.skills.heading}>
         <Win title="skills.json">
-          <div className="space-y-4 overflow-x-auto p-4 sm:p-6">
+          <div className="min-w-0 space-y-4 overflow-x-hidden p-4 sm:p-6">
             <p style={{ color: C.mute }}>{"{"}</p>
             {t.skills.categories.map((cat, i) => (
               <div key={i} className="pl-4">
@@ -579,7 +580,7 @@ export default function Portfolio() {
                 <p className="text-xs" style={{ color: live ? C.amber : C.mute }}>{exp.period}</p>
                 <p className="mt-1 text-xs" style={{ color: C.green }}>{exp.company}</p>
                 <div className="mt-1 flex items-center gap-2">
-                  <h3 className="break-words text-base font-bold" style={{ color: C.text }}>{exp.title}</h3>
+                  <h3 className="min-w-0 flex-1 break-words text-base font-bold" style={{ color: C.text }}>{exp.title}</h3>
                   {exp.link && (
                     <a
                       href={`https://${exp.link}`}
@@ -624,7 +625,7 @@ export default function Portfolio() {
             <Win key={i} title={`projects/${p.name}`} className="h-full">
               <div className="p-4">
                 <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-                  <h3 className="break-words text-base font-bold" style={{ color: C.text }}>{p.name}</h3>
+                  <h3 className="min-w-0 flex-1 break-words text-base font-bold" style={{ color: C.text }}>{p.name}</h3>
                   <span className="shrink-0 text-xs" style={{ color: C.amber }}>{p.period}</span>
                 </div>
                 <p className="mb-3" style={{ color: C.mute }}>{p.desc}</p>

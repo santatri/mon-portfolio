@@ -33,16 +33,16 @@ function makeMenuTexture(item, index, selected = false) {
   ctx.stroke();
   ctx.shadowBlur = 0;
   ctx.fillStyle = item.color;
-  ctx.font = "700 25px Arial";
+  ctx.font = "700 30px Arial";
   ctx.fillText(`0${index + 1}  /  PORTFOLIO`, 42, 70);
   ctx.fillStyle = "#ffffff";
-  ctx.font = "700 47px Arial";
+  ctx.font = "700 90px Arial";
   ctx.fillText(item.title, 42, 151, 540);
   ctx.fillStyle = "#aab5dc";
-  ctx.font = "24px Arial";
+  ctx.font = "32px Arial";
   ctx.fillText(item.subtitle, 44, 202, 540);
   ctx.fillStyle = item.color;
-  ctx.font = "700 21px Arial";
+  ctx.font = "700 26px Arial";
   ctx.fillText(selected ? "OPEN  ↗" : "CLICK TO OPEN  ↗", 44, 247);
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
@@ -177,7 +177,7 @@ function createScene(host, menuItems, onChoose, initialIndex) {
   const menuMeshes = menuItems.map((item, index) => {
     const angle = (index / menuItems.length) * Math.PI * 2 - Math.PI / 2;
     const mesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(1.95, 0.86),
+      new THREE.PlaneGeometry(2.25, 0.98),
       new THREE.MeshBasicMaterial({ map: makeMenuTexture(item, index, index === initialIndex), transparent: true, side: THREE.DoubleSide, depthWrite: false })
     );
     mesh.position.set(Math.cos(angle) * 3.12, Math.sin(angle) * 3.12, 0.15);
@@ -221,7 +221,7 @@ function createScene(host, menuItems, onChoose, initialIndex) {
     isMobileLayout = width < 1100;
     renderer.setSize(width, height, false);
     camera.aspect = width / height;
-    camera.position.z = isMobileLayout ? (width < 500 ? 18.5 : 13.5) : 12.5;
+    camera.position.z = isMobileLayout ? (width < 390 ? 20 : width < 500 ? 18.5 : 13.5) : 12.5;
     universe.position.set(isMobileLayout ? 0 : -3.8, isMobileLayout ? 1.6 : 0, 0);
     panel.position.set(isMobileLayout ? 0 : 4.5, isMobileLayout ? -4.5 : 0, -2.4);
     panel.scale.setScalar(isMobileLayout ? 1.1 : 1);
@@ -229,7 +229,7 @@ function createScene(host, menuItems, onChoose, initialIndex) {
     menuMeshes.forEach((mesh, index) => {
       const angle = (index / menuMeshes.length) * Math.PI * 2 - Math.PI / 2;
       mesh.position.set(Math.cos(angle) * menuRadius, Math.sin(angle) * menuRadius, 0.15);
-      mesh.scale.setScalar((isMobileLayout ? 0.78 : 1) * (index === selectedIndex ? 1.08 : 1));
+      mesh.scale.setScalar((isMobileLayout ? 0.82 : 1) * (index === selectedIndex ? 1.08 : 1));
     });
     camera.updateProjectionMatrix();
     controls.update();
@@ -249,7 +249,7 @@ function createScene(host, menuItems, onChoose, initialIndex) {
       mesh.material.map = textureFor(i, i === index);
       mesh.material.map.needsUpdate = true;
       oldTexture?.dispose();
-      mesh.scale.setScalar((isMobileLayout ? 0.78 : 1) * (i === index ? 1.08 : 1));
+      mesh.scale.setScalar((isMobileLayout ? 0.82 : 1) * (i === index ? 1.08 : 1));
     });
     const oldPanelTexture = panelFace.material.map;
     panelFace.material.map = makeContentTexture(menuItems[index]);
@@ -278,8 +278,8 @@ function createScene(host, menuItems, onChoose, initialIndex) {
     const target = getIntersectedMenu(event);
     const nextHovered = target?.userData.index ?? -1;
     if (nextHovered !== hoveredIndex) {
-      if (hoveredIndex >= 0 && hoveredIndex !== selectedIndex) menuMeshes[hoveredIndex].scale.setScalar(isMobileLayout ? 0.78 : 1);
-      if (nextHovered >= 0) menuMeshes[nextHovered].scale.setScalar((isMobileLayout ? 0.78 : 1) * (nextHovered === selectedIndex ? 1.1 : 1.06));
+      if (hoveredIndex >= 0 && hoveredIndex !== selectedIndex) menuMeshes[hoveredIndex].scale.setScalar(isMobileLayout ? 0.82 : 1);
+      if (nextHovered >= 0) menuMeshes[nextHovered].scale.setScalar((isMobileLayout ? 0.82 : 1) * (nextHovered === selectedIndex ? 1.1 : 1.06));
       hoveredIndex = nextHovered;
       renderer.domElement.style.cursor = target ? "pointer" : "grab";
     }
@@ -363,7 +363,7 @@ export default function Portfolio3D() {
 
   const menuItems = useMemo(() => {
     const colors = ["#00eaff", "#a878ff", "#62ffd0", "#ffbd4a", "#53aaff", "#ff6cc8"];
-    const titleList = [t.about.heading, t.skills.heading, t.experience.heading, t.cv.education, t.projects.heading, t.contact.heading];
+    const titleList = [t.nav.about, t.nav.skills, t.nav.experience, t.cv.education, t.nav.projects, t.nav.contact];
     const detail = [
       [t.about.bio],
       t.skills.categories.map((category) => `${category.title} : ${category.items.join(" · ")}`),
@@ -374,7 +374,9 @@ export default function Portfolio3D() {
     ];
     return titleList.map((title, index) => ({
       title,
-      subtitle: ["PROFILE", "SKILLS / STACK", "CAREER TIMELINE", "EDUCATION", "SELECTED PROJECTS", "GET IN TOUCH"][index],
+      subtitle: (lang === "fr"
+        ? ["PRÉSENTATION", "COMPÉTENCES", "PARCOURS PRO", "ÉTUDES", "PROJETS", "CONTACT"]
+        : ["PROFILE", "SKILLS / STACK", "CAREER", "EDUCATION", "PROJECTS", "CONTACT"])[index],
       eyebrow: `SECTION 0${index + 1}  /  ${title.toUpperCase()}`,
       color: colors[index],
       lines: detail[index],
