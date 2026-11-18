@@ -24,6 +24,10 @@ import {
 } from "lucide-react";
 import { translations, contactInfo } from "../data/translations";
 import CVDocument from "./CVDocument";
+import ProfileBadge from "./ProfileBadge";
+
+// Modèle de badge pour la photo : "pro" | "medal" | "card" | "shield"
+const BADGE_VARIANT = "pro";
 
 // Photo de profil (accueil + CV)
 import profilImg from "../img/profil.png";
@@ -83,7 +87,7 @@ const EXPERIENCE_IMAGES = [
 const getExperienceImages = (company) => {
   if (company.includes("CFPM")) return EXPERIENCE_IMAGES[1];
   if (company.includes("S.E.S MED")) return EXPERIENCE_IMAGES[2];
-  if (company.includes("4K Design") || company.includes("4K Design")) return EXPERIENCE_IMAGES[3];
+  if (company.includes("4K Design")) return EXPERIENCE_IMAGES[3];
   if (company.includes("MTEFOP") || company.includes("Ministry of Labor")) return EXPERIENCE_IMAGES[4];
   return EXPERIENCE_IMAGES[0];
 };
@@ -188,9 +192,9 @@ function ImageGallery({ images, onOpen }) {
 
 // Visionneuse plein écran pour parcourir les captures d'un projet donné.
 function Lightbox({ images, index, onClose, onNavigate }) {
-  if (!images) return null;
-
+  // Le hook est appelé avant tout return conditionnel (règle des hooks React).
   useEffect(() => {
+    if (!images) return undefined;
     const onKey = (e) => {
       if (e.key === "Escape") onClose();
       if (e.key === "ArrowRight") onNavigate(1);
@@ -198,7 +202,9 @@ function Lightbox({ images, index, onClose, onNavigate }) {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, onNavigate]);
+  }, [images, onClose, onNavigate]);
+
+  if (!images) return null;
 
   return (
     <div
@@ -417,9 +423,9 @@ export default function Portfolio() {
             ))}
             <div className="flex items-center gap-3 pt-2">
               <button
-              onClick={toggleLang}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-slate-700 text-xs font-mono text-slate-300"
-              disabled={isLanguageChanging}
+                onClick={toggleLang}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-slate-700 text-xs font-mono text-slate-300"
+                disabled={isLanguageChanging}
               >
                 <Globe size={13} />
                 {lang === "fr" ? "FR / EN" : "EN / FR"}
@@ -480,23 +486,14 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {/* Photo de profil */}
+          {/* Photo de profil : badge (voir ProfileBadge.jsx) */}
           <div className="flex shrink-0 justify-center md:justify-end">
-            <div className="relative w-44 sm:w-52 md:w-64">
-              <span className="absolute -inset-4 rounded-3xl bg-[#2b6cb0]/20 blur-2xl" />
-              <span className="absolute -left-2 -top-2 h-16 w-16 rounded-tl-3xl border-l-2 border-t-2 border-[#4d9fef]" />
-              <span className="absolute -bottom-2 -right-2 h-16 w-16 rounded-br-3xl border-b-2 border-r-2 border-[#4d9fef]/70" />
-              <div className="relative overflow-hidden rounded-2xl border border-[#4d9fef]/50 bg-slate-900 p-1.5 shadow-2xl shadow-black/40">
-                <img
-                  src={profilImg}
-                  alt={t.hero.name}
-                  className="aspect-[4/5] w-full rounded-xl object-cover object-top"
-                />
-              </div>
-              <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-slate-700 bg-[#151516] px-3 py-1 text-[10px] font-mono text-[#8fc5ff] shadow-lg">
-                Full Stack Developer
-              </span>
-            </div>
+            <ProfileBadge
+              variant={BADGE_VARIANT}
+              src={profilImg}
+              name={t.hero.name}
+              lang={lang}
+            />
           </div>
         </div>
       </section>
@@ -560,10 +557,7 @@ export default function Portfolio() {
         <SectionHeading index="03" label={t.experience.heading} />
         <div className="relative ml-2 border-l border-slate-800 pl-6 sm:ml-5 sm:pl-10">
           {orderedExperienceItems.map((exp, i) => (
-            <div
-              key={i}
-              className="group relative pb-10 last:pb-0"
-            >
+            <div key={i} className="group relative pb-10 last:pb-0">
               <span className="absolute -left-[35px] top-1 flex h-6 w-6 items-center justify-center rounded-full border-4 border-[#151516] bg-[#2b6cb0] text-[9px] font-bold text-white shadow-[0_0_0_1px_rgba(77,159,239,0.35)] sm:-left-[52px]">
                 {String(i + 1).padStart(2, "0")}
               </span>
